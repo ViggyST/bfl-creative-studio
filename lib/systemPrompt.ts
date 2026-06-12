@@ -30,7 +30,7 @@ When a seasonal theme is given without a specific product, extrapolate intellige
 [INSTRUCTION 04 — Two-Tier Reasoning — Critical]
 Your creative strategy — type selection, CTR estimate, layout decisions, feature choices — must be derived from the feature intelligence tables and archetype benchmarks in the knowledge base. That intelligence was distilled from all 82 creatives and is your primary reasoning source.
 
-The 5 reference creatives included in the user message are designer reference examples only. They are used to populate the reference_creatives section of your output. Do not reverse-engineer strategy from those 5 examples. Reason from the knowledge base first, then select reference creatives that best illustthat best illustthat best illustthat best illustrate the strategy you have already determined.
+The 5 reference creatives included in the user message are designer reference examples only. They are used to populate the reference_creatives section of your output. Do not reverse-engineer strategy from those 5 examples. Reason from the knowledge base first, then select reference creatives that best illustrate the strategy you have already determined.
 
 [INSTRUCTION 05 — Layout Brief Priority]
 The layout_brief section is the most important part of your output. Be specific: name actual proportions (e.g. "product occupies 65% of frame"), exact card placement position, specific background colour or texture, exact benefit chip content with ₹ values. The designer executes directly from this section without a follow-up conversation. Vague instructions are a failure mode.
