@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import CopyButton from './CopyButton'
+import CreativeCard from './CreativeCard'
 import type { BriefRequest, BriefResponse } from '@/types/index'
 
 interface BriefOutputProps {
@@ -485,4 +486,3 @@ function LayoutBriefSection({ brief }: { brief: BriefResponse }) {
       </div>
     )
   }
-  
