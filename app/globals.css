@@ -1,26 +1,85 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Colour ─────────────────────────────────────── */
+  --c-bg: #FAF8F4;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #F3EFE9;
+  --c-surface-3: #F7F4EF;
+  --c-border: #E8E2D9;
+  --c-border-subtle: #F0EBE3;
+  --c-text: #2B2723;
+  --c-text-muted: #6B655F;
+  --c-text-faint: #A39C92;
+  --c-text-ghost: #CCC4B8;
+
+  --c-amber: #BA8A3C;
+  --c-amber-soft: rgba(186, 138, 60, 0.10);
+  --c-amber-deep: #A8762E;
+
+  --c-green: #1A8F4E;
+  --c-green-soft: rgba(26, 143, 78, 0.12);
+
+  --c-red: #D9534F;
+  --c-red-soft: rgba(217, 76, 63, 0.06);
+
+  --c-blue: #3568D4;
+  --c-blue-soft: rgba(53, 104, 212, 0.08);
+
+  /* ── Fonts ──────────────────────────────────────── */
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono-custom);
+
+  /* ── Spacing ────────────────────────────────────── */
+  --space-xxs: 4px;
+  --space-xs: 6px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 14px;
+  --space-xl: 16px;
+  --space-2xl: 20px;
+  --space-3xl: 32px;
+
+  /* ── Radius ─────────────────────────────────────── */
+  --radius-sm: 4px;
+  --radius-md: 5px;
+  --radius-lg: 6px;
+  --radius-pill: 9999px;
+  --radius-app: 10px;
+
+  /* ── Shadow ─────────────────────────────────────── */
+  --shadow-card: 0 1px 2px rgba(43, 39, 35, 0.04), 0 1px 1px rgba(43, 39, 35, 0.03);
+  --shadow-focus: 0 0 0 3px rgba(186, 138, 60, 0.12);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display), sans-serif;
+  }
+  .font-data {
+    font-family: var(--font-mono), monospace;
+  }
+}
+@keyframes loadbar {
+  from { width: 0%; }
+  to { width: 95%; }
 }

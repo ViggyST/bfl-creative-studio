@@ -1,65 +1,121 @@
-import Image from "next/image";
+'use client'
+
+import { useState, useEffect } from 'react'
+import BriefForm from '@/components/BriefForm'
+import BriefOutput from '@/components/BriefOutput'
+import type { BriefRequest, BriefResponse } from '@/types/index'
+
+type AppState = 'form' | 'loading' | 'output'
+
+const LOADING_STEPS = [
+  'Classifying product & intent',
+  'Matching reference creatives',
+  'Building layout brief',
+  'Generating copy formula',
+  'Composing image prompts',
+]
 
 export default function Home() {
+  const [state, setState] = useState<AppState>('form')
+  const [formData, setFormData] = useState<BriefRequest | undefined>(undefined)
+  const [brief, setBrief] = useState<BriefResponse | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [stepIndex, setStepIndex] = useState(0)
+
+  // Cycle loading step text every 340ms while in loading state
+  useEffect(() => {
+    if (state !== 'loading') return
+    const interval = setInterval(() => {
+      setStepIndex((i) => (i + 1) % LOADING_STEPS.length)
+    }, 340)
+    return () => clearInterval(interval)
+  }, [state])
+
+  async function handleSubmit(data: BriefRequest) {
+    setFormData(data)
+    setError(null)
+    setStepIndex(0)
+    setState('loading')
+
+    try {
+      const res = await fetch('/api/generate-brief', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      const json = await res.json()
+
+      if (!res.ok || json.error) {
+        setError(json.error || 'Brief generation failed. Please try again.')
+        setState('form')
+        return
+      }
+
+      setBrief(json as BriefResponse)
+      setState('output')
+    } catch {
+      setError('Brief generation failed. Please try again.')
+      setState('form')
+    }
+  }
+
+  function handleNewBrief() {
+    setState('form')
+    setBrief(null)
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="flex min-h-screen flex-col">
+      <HeaderBar />
+
+      {state === 'form' && (
+        <main className="flex flex-1 flex-col items-center justify-center px-5 py-10">
+          {error && (
+            <div className="mb-4 w-full max-w-[520px] rounded-[var(--radius-sm)] border border-[var(--c-red)] bg-[var(--c-red-soft)] px-4 py-3 text-[12px] text-[var(--c-red)]">
+              {error}
+            </div>
+          )}
+          <BriefForm onSubmit={handleSubmit} initialValues={formData} />
+        </main>
+      )}
+
+      {state === 'loading' && <LoadingScreen stepIndex={stepIndex} />}
+
+      {state === 'output' && brief && formData && (
+        <BriefOutput brief={brief} request={formData} onNewBrief={handleNewBrief} />
+      )}
     </div>
-  );
+  )
+}
+
+function HeaderBar() {
+  return (
+    <header className="flex h-[46px] items-center justify-between border-b border-[var(--c-border)] bg-[var(--c-surface)] px-5">
+      <div className="flex items-center gap-2">
+        <span className="h-2 w-2 rounded-full bg-[var(--c-amber)]" />
+        <span className="font-display text-[13px] font-semibold tracking-[-0.2px] text-[var(--c-text)]">
+          BFL Creative Studio
+        </span>
+      </div>
+      <span className="font-data text-[11px] text-[var(--c-text-faint)]">
+        Insta EMI Card · Marketing
+      </span>
+    </header>
+  )
+}
+
+function LoadingScreen({ stepIndex }: { stepIndex: number }) {
+  return (
+    <main className="flex flex-1 flex-col items-center justify-center gap-4">
+      <p className="font-display text-[16px] font-semibold text-[var(--c-text)]">
+        Generating brief...
+      </p>
+      <div className="h-[2px] w-[200px] overflow-hidden rounded-full bg-[var(--c-surface-2)]">
+        <div className="h-full w-0 rounded-full bg-[var(--c-amber)] [animation:loadbar_1.7s_ease-out_forwards]" />
+      </div>
+      <p className="font-data text-[11px] text-[var(--c-text-faint)]">
+        {LOADING_STEPS[stepIndex]}
+      </p>
+    </main>
+  )
 }
