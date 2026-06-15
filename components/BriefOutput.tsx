@@ -323,32 +323,166 @@ function LayoutBriefSection({ brief }: { brief: BriefResponse }) {
     </SectionCard>
   )
 }
-'use client'
+/* ─────────────────────────────────────────────────────────────
+   05 — Reference Creatives (spec §5.7)
+   ───────────────────────────────────────────────────────────── */
 
-import { useState } from 'react'
-import { Copy, Check } from 'lucide-react'
-
-interface CopyButtonProps {
-  text: string
-}
-
-export default function CopyButton({ text }: CopyButtonProps) {
-  const [copied, setCopied] = useState(false)
-
-  async function handleCopy() {
-    await navigator.clipboard.writeText(text)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
+   function ReferenceCreativesSection({ brief }: { brief: BriefResponse }) {
+    const baseline = brief.ctr_score_estimate.baseline
+  
+    return (
+      <SectionCard label="Reference Creatives">
+        <div className="grid grid-cols-5 gap-3">
+          {brief.reference_creatives.map((creative, i) => (
+            <CreativeCard
+              key={creative.filename}
+              creative={creative}
+              isBestMatch={i === 0}
+              highPerformer={creative.ctr >= baseline}
+            />
+          ))}
+        </div>
+        <p className="mt-3 font-data text-[10px] text-[var(--c-text-ghost)]">
+          PNG thumbnails from /public/creatives/ · gold border = best match
+        </p>
+      </SectionCard>
+    )
   }
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="flex items-center gap-1 font-data text-[11px] text-[var(--c-text-faint)] transition-colors hover:text-[var(--c-text-muted)]"
-    >
-      {copied ? <Check size={12} /> : <Copy size={12} />}
-      {copied ? 'copied' : 'copy'}
-    </button>
-  )
-}
+  
+  /* ─────────────────────────────────────────────────────────────
+     06 — Include / Avoid (spec §5.8)
+     ───────────────────────────────────────────────────────────── */
+  
+  function IncludeAvoidSection({ brief }: { brief: BriefResponse }) {
+    return (
+      <SectionCard label="Include / Avoid">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:divide-x sm:divide-[var(--c-border-subtle)]">
+          <div>
+            <h3 className="mb-2 font-data text-[10px] uppercase tracking-[0.08em] text-[var(--c-green)]">
+              ✓ Include
+            </h3>
+            <ul className="flex flex-col gap-1.5">
+              {brief.include.map((item, i) => (
+                <li
+                  key={i}
+                  className="rounded-[var(--radius-sm)] bg-[var(--c-green-soft)] px-2.5 py-1.5 text-[11px] text-[var(--c-text-muted)]"
+                  style={{ borderLeft: '2px solid var(--c-green)' }}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+  
+          <div className="border-t border-[var(--c-border-subtle)] pt-4 sm:border-t-0 sm:pl-4 sm:pt-0">
+            <h3 className="mb-2 font-data text-[10px] uppercase tracking-[0.08em] text-[var(--c-red)]">
+              ✗ Avoid
+            </h3>
+            <ul className="flex flex-col gap-1.5">
+              {brief.avoid.map((item, i) => (
+                <li
+                  key={i}
+                  className="rounded-[var(--radius-sm)] bg-[var(--c-red-soft)] px-2.5 py-1.5 text-[11px] text-[var(--c-text-muted)]"
+                  style={{ borderLeft: '2px solid var(--c-red)' }}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </SectionCard>
+    )
+  }
+  
+  /* ─────────────────────────────────────────────────────────────
+     07 — CTR Score Waterfall (spec §5.9)
+     ───────────────────────────────────────────────────────────── */
+  
+  function CTRWaterfallSection({ brief }: { brief: BriefResponse }) {
+    const { baseline, elements, estimated_ctr } = brief.ctr_score_estimate
+    const BASELINE_BAR_WIDTH = 80 // px
+    const maxLift = Math.max(...elements.map((e) => Math.abs(e.lift)), 0.01)
+    const opacities = [0.16, 0.12, 0.08]
+  
+    return (
+      <SectionCard label="CTR Score Waterfall">
+        <div className="flex flex-col gap-1.5">
+          <WaterfallRow
+            label="Baseline"
+            labelColor="var(--c-text-faint)"
+            value={`${baseline.toFixed(2)}%`}
+            barWidth={BASELINE_BAR_WIDTH}
+            barColor="var(--c-surface-2)"
+          />
+  
+          {elements.map((el, i) => {
+            const width = Math.max(20, (Math.abs(el.lift) / maxLift) * BASELINE_BAR_WIDTH)
+            const isNegative = el.lift < 0
+            return (
+              <WaterfallRow
+                key={el.feature}
+                label={el.feature}
+                labelColor="var(--c-text)"
+                value={`${el.lift > 0 ? '+' : ''}${el.lift.toFixed(2)}%`}
+                barWidth={width}
+                barColor={
+                  isNegative
+                    ? 'var(--c-red-soft)'
+                    : `rgba(26, 143, 78, ${opacities[Math.min(i, opacities.length - 1)]})`
+                }
+                valueColor={isNegative ? 'var(--c-red)' : 'var(--c-text)'}
+                note={el.note}
+              />
+            )
+          })}
+  
+          <div className="mt-2 flex items-center justify-between border-t border-[var(--c-border-subtle)] pt-2">
+            <span className="font-data text-[10px] text-[var(--c-text-faint)]">estimated</span>
+            <span className="font-display text-[18px] font-semibold tracking-[-0.5px] text-[var(--c-green)]">
+              ~{estimated_ctr.toFixed(1)}%
+            </span>
+          </div>
+        </div>
+      </SectionCard>
+    )
+  }
+  
+  function WaterfallRow({
+    label,
+    labelColor,
+    value,
+    barWidth,
+    barColor,
+    valueColor = 'var(--c-text)',
+    note,
+  }: {
+    label: string
+    labelColor: string
+    value: string
+    barWidth: number
+    barColor: string
+    valueColor?: string
+    note?: string
+  }) {
+    return (
+      <div className="flex items-center gap-2">
+        <span
+          className="w-24 shrink-0 truncate font-data text-[10px]"
+          style={{ color: labelColor }}
+          title={note}
+        >
+          {label}
+        </span>
+        <div
+          className="flex h-5 items-center justify-end rounded-[3px] px-1.5"
+          style={{ width: `${barWidth}px`, backgroundColor: barColor }}
+        >
+          <span className="font-data text-[9px]" style={{ color: valueColor }}>
+            {value}
+          </span>
+        </div>
+      </div>
+    )
+  }
+  
