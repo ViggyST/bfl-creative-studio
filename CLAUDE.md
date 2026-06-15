@@ -56,7 +56,7 @@ lib/
   knowledge.ts, creativeLibrary.ts, systemPrompt.ts
 types/
   index.ts
-public/creatives/   ← EMPTY, 82 PNGs pending (see docs/KNOWN_ISSUES.md)
+public/creatives/   ← 82 PNGs populated and verified (15 Jun)
 docs/
   DESIGN_SYSTEM.md, KNOWN_ISSUES.md
 ```
@@ -77,10 +77,18 @@ enforced — see docs/KNOWN_ISSUES.md).
 | S7 | Final polish + README + deploy | README.md, Vercel deploy | 3 real briefs <10s, 0 console errors, shared URL works |
 
 ## 7. Current Status
-**Last completed: S5 (UI components), 15 Jun 2026**
+**Last completed: S5 (UI components), 15 Jun 2026. Housekeeping pass, 15 Jun 2026.**
 All 6 UI files built, debugged, and verified working live end-to-end (browser-tested,
-full 7-section brief rendered correctly with real Anthropic output). Two known issues
-open — see docs/KNOWN_ISSUES.md. Next: S6a (visual polish) via Claude Code.
+full 7-section brief rendered correctly with real Anthropic output). Since S5, in the
+same live end-to-end test:
+- public/creatives/ populated with all 82 PNGs — rendering verified, no 404s.
+  KNOWN_ISSUES #1 resolved.
+- max_tokens bumped 4096→8192 to prevent JSON truncation on verbose briefs — verified.
+- CTR waterfall math issue reconfirmed (estimated_ctr doesn't reconcile with
+  baseline + Σ lifts) — still open, scoped to S6b.
+
+**S6a (visual polish) is PAUSED** pending a UIUX direction discussion with ST. Do not
+begin S6a until that discussion concludes.
 
 ## 8. Tool Division
 | | Claude Code | Cursor |
@@ -96,3 +104,6 @@ open — see docs/KNOWN_ISSUES.md. Next: S6a (visual polish) via Claude Code.
   revisit if it recurs after S6b's prompt tightening)
 - `--c-*-soft` opacity values were single-value picks from a spec range (e.g. green-soft
   0.12 from a 0.05–0.16 range) — flag during S6a if any look off
+- Loading copy ("~4 seconds to generate") is inaccurate now that the truncation fix means
+  verbose briefs can take 60–100s+ — revisit during visual polish (see
+  docs/KNOWN_ISSUES.md Notes)
