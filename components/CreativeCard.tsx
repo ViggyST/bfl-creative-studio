@@ -10,11 +10,11 @@ interface CreativeCardProps {
 export default function CreativeCard({ creative, isBestMatch, highPerformer }: CreativeCardProps) {
   return (
     <div
-      className="overflow-hidden rounded-[var(--radius-lg)] border bg-[var(--c-surface)] shadow-[var(--shadow-card)]"
+      className="overflow-hidden rounded-[8px] border bg-[var(--c-surface)] shadow-[var(--shadow-card)]"
       style={{ borderColor: isBestMatch ? 'var(--c-amber)' : 'var(--c-border)' }}
       title={creative.match_reason}
     >
-      <div className="relative h-[52px] w-full bg-[var(--c-surface-2)]">
+      <div className="relative h-[120px] w-full bg-[var(--c-surface-2)]">
         <Image
           src={creative.url}
           alt={creative.display_name}
@@ -23,7 +23,7 @@ export default function CreativeCard({ creative, isBestMatch, highPerformer }: C
           sizes="200px"
         />
         <span
-          className={`absolute right-1 top-1 rounded-[var(--radius-pill)] px-2 py-[2px] font-data text-[9px] ${
+          className={`absolute right-2 top-2 rounded-[var(--radius-pill)] px-[10px] py-[3px] font-data text-[11px] ${
             highPerformer
               ? 'bg-[var(--c-green-soft)] text-[var(--c-green)]'
               : 'bg-[var(--c-amber-soft)] text-[var(--c-amber)]'
@@ -32,7 +32,7 @@ export default function CreativeCard({ creative, isBestMatch, highPerformer }: C
           {creative.ctr.toFixed(1)}%
         </span>
       </div>
-      <p className="truncate px-1.5 py-1 font-data text-[9px] text-[var(--c-text-faint)]">
+      <p className="p-3 font-data text-[11px] leading-[1.5] text-[var(--c-text-faint)]">
         {creative.display_name}
       </p>
     </div>

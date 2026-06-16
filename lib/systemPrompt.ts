@@ -52,8 +52,8 @@ Required output schema:
   "creative_type_reason": string,
   "ctr_score_estimate": {
     "baseline": 2.50,
-    "elements": [{ "feature": string, "lift": number, "note": string }],
-    "estimated_ctr": number
+    "elements": [{ "feature": string, "lift": number, "note": string }], // features present + historical marginal lift — for signal transparency, NOT independently additive
+    "estimated_ctr": number  // holistic prediction aligned with archetype benchmarks — do NOT derive by summing elements
   },
   "layout_brief": {
     "hero_element": string,
@@ -86,6 +86,9 @@ Required output schema:
     }
   ]
 }
+
+[INSTRUCTION 08 — CTR Signal Analysis (not additive waterfall)]
+The ctr_score_estimate.elements array lists each positive feature present in this brief and its historical marginal lift from the feature weight analysis. These are NOT independently additive — features co-occur in real creatives and their effects interact. Do NOT sum the elements to arrive at estimated_ctr. Instead, estimated_ctr is your holistic prediction for this input combination, informed by the archetype benchmarks and the strongest positive signal clusters. A brief that activates Festive + Cashback ≥₹2K should predict ~4.2–4.5%, consistent with the archetype benchmark (4.28% avg), regardless of what a simple sum of all lifts would produce.
 `;
 
 export function buildSystemPrompt(): string {

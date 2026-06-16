@@ -22,7 +22,6 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null)
   const [stepIndex, setStepIndex] = useState(0)
 
-  // Cycle loading step text every 340ms while in loading state
   useEffect(() => {
     if (state !== 'loading') return
     const interval = setInterval(() => {
@@ -69,9 +68,9 @@ export default function Home() {
       <HeaderBar />
 
       {state === 'form' && (
-        <main className="flex flex-1 flex-col items-center justify-center px-5 py-10">
+        <main className="flex flex-1 flex-col items-center justify-center px-8 py-16">
           {error && (
-            <div className="mb-4 w-full max-w-[520px] rounded-[var(--radius-sm)] border border-[var(--c-red)] bg-[var(--c-red-soft)] px-4 py-3 text-[12px] text-[var(--c-red)]">
+            <div className="mb-4 w-full max-w-[760px] rounded-[var(--radius-sm)] border border-[var(--c-red)] bg-[var(--c-red-soft)] px-4 py-3 text-[12px] text-[var(--c-red)]">
               {error}
             </div>
           )}
@@ -82,7 +81,9 @@ export default function Home() {
       {state === 'loading' && <LoadingScreen stepIndex={stepIndex} />}
 
       {state === 'output' && brief && formData && (
-        <BriefOutput brief={brief} request={formData} onNewBrief={handleNewBrief} />
+        <main className="flex-1 bg-[var(--c-bg)]">
+          <BriefOutput brief={brief} request={formData} onNewBrief={handleNewBrief} />
+        </main>
       )}
     </div>
   )
@@ -90,7 +91,7 @@ export default function Home() {
 
 function HeaderBar() {
   return (
-    <header className="flex h-[46px] items-center justify-between border-b border-[var(--c-border)] bg-[var(--c-surface)] px-5">
+    <header className="flex h-[56px] items-center justify-between border-b border-[var(--c-border)] bg-[var(--c-surface)] px-8">
       <div className="flex items-center gap-2">
         <span className="h-2 w-2 rounded-full bg-[var(--c-amber)]" />
         <span className="font-display text-[13px] font-semibold tracking-[-0.2px] text-[var(--c-text)]">
@@ -108,13 +109,16 @@ function LoadingScreen({ stepIndex }: { stepIndex: number }) {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-4">
       <p className="font-display text-[16px] font-semibold text-[var(--c-text)]">
-        Generating brief...
+        Generating your brief...
       </p>
       <div className="h-[2px] w-[200px] overflow-hidden rounded-full bg-[var(--c-surface-2)]">
         <div className="h-full w-0 rounded-full bg-[var(--c-amber)] [animation:loadbar_1.7s_ease-out_forwards]" />
       </div>
       <p className="font-data text-[11px] text-[var(--c-text-faint)]">
         {LOADING_STEPS[stepIndex]}
+      </p>
+      <p className="mt-2 font-data text-[10px] text-[var(--c-text-ghost)]">
+        Takes 10–90 seconds depending on brief complexity
       </p>
     </main>
   )

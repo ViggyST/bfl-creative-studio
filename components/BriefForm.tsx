@@ -44,39 +44,41 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
   }
 
   return (
-    <div className="w-full max-w-[520px]">
+    <div className="w-full max-w-[760px]">
       {/* Eyebrow */}
-      <p className="mb-3 text-center font-data text-[11px] uppercase tracking-[0.12em] text-[var(--c-text-faint)]">
+      <p className="mb-3 text-center font-data text-[12px] uppercase tracking-[0.12em] text-[var(--c-text-faint)]">
         Creative Intelligence Tool
       </p>
 
       {/* Heading */}
-      <h1 className="text-center font-display text-[26px] font-semibold tracking-[-0.6px] text-[var(--c-text)]">
+      <h1 className="text-center font-display text-[42px] font-semibold tracking-[-0.7px] text-[var(--c-text)]">
         Generate a creative brief
       </h1>
-      <div className="mx-auto mt-2 h-[2px] w-9 bg-[var(--c-amber)]" />
+      <div className="mx-auto mt-4 h-[3px] w-[52px] bg-[var(--c-amber)]" />
 
       {/* Sub-copy */}
-      <p className="mt-4 text-center text-[12px] leading-relaxed text-[var(--c-text-faint)]">
+      <p className="mt-6 text-center text-[14px] leading-relaxed text-[var(--c-text-faint)]">
         Backed by 82 analysed Insta EMI Card creatives · Confound-corrected CTR data
         <br />
         Fill 4 fields. Get a production-ready brief in ~4 seconds.
       </p>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-7">
         {/* Campaign Intent */}
         <div>
-          <label className="mb-2 block font-data text-[9px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
-            Campaign Intent
-          </label>
+          <div className="mb-2 flex items-baseline justify-between">
+            <label className="font-data text-[12px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
+              Campaign Intent
+            </label>
+          </div>
           <div className="flex flex-wrap gap-2">
             {INTENT_OPTIONS.map((opt) => (
               <button
                 key={opt}
                 type="button"
                 onClick={() => setIntent(opt)}
-                className={`rounded-[var(--radius-pill)] border px-3 py-[6px] font-data text-[11px] transition-colors duration-150 ${
+                className={`rounded-[var(--radius-pill)] border px-5 py-[10px] font-data text-[13px] transition-colors duration-150 ${
                   intent === opt
                     ? 'border-[var(--c-amber)] bg-[var(--c-amber-soft)] text-[var(--c-amber)]'
                     : 'border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text-faint)]'
@@ -90,9 +92,14 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
 
         {/* Product / Focus */}
         <div>
-          <label htmlFor="product" className="mb-2 block font-data text-[9px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
-            Product / Focus
-          </label>
+          <div className="mb-2 flex items-baseline justify-between">
+            <label htmlFor="product" className="font-data text-[12px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
+              Product / Focus
+            </label>
+            <span className="rounded-[var(--radius-pill)] bg-[var(--c-amber-soft)] px-[10px] py-[3px] font-data text-[11px] uppercase tracking-[0.06em] text-[var(--c-amber)]">
+              Required
+            </span>
+          </div>
           <input
             id="product"
             type="text"
@@ -108,9 +115,14 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
 
         {/* Offer */}
         <div>
-          <label htmlFor="offer" className="mb-2 block font-data text-[9px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
-            Offer
-          </label>
+          <div className="mb-2 flex items-baseline justify-between">
+            <label htmlFor="offer" className="font-data text-[12px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
+              Offer
+            </label>
+            <span className="rounded-[var(--radius-pill)] bg-[var(--c-amber-soft)] px-[10px] py-[3px] font-data text-[11px] uppercase tracking-[0.06em] text-[var(--c-amber)]">
+              Required
+            </span>
+          </div>
           <input
             id="offer"
             type="text"
@@ -126,23 +138,28 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
 
         {/* Context */}
         <div>
-          <label htmlFor="context" className="mb-2 block font-data text-[9px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
-            Context
-          </label>
+          <div className="mb-2 flex items-baseline justify-between">
+            <label htmlFor="context" className="font-data text-[12px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
+              Context
+            </label>
+            <span className="rounded-[var(--radius-pill)] bg-[var(--c-surface-2)] px-[10px] py-[3px] font-data text-[11px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
+              Optional
+            </span>
+          </div>
           <textarea
             id="context"
             value={context}
             onChange={(e) => setContext(e.target.value)}
             placeholder="Audience notes, seasonal event, tone, competitor angle…"
             rows={3}
-            className={`${inputClasses(false)} min-h-[72px] resize-none`}
+            className={`${inputClasses(false)} min-h-[140px] resize-none`}
           />
         </div>
 
         {/* Generate button */}
         <button
           type="submit"
-          className="mt-2 flex w-full items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--c-amber)] px-7 py-[13px] font-display text-[14px] font-semibold tracking-[-0.1px] text-[var(--c-surface)] transition-opacity duration-150 hover:opacity-90"
+          className="mt-4 flex w-full items-center justify-center gap-2 rounded-[7px] bg-[var(--c-amber)] px-7 py-[18px] font-display text-[16px] font-semibold tracking-[-0.1px] text-[var(--c-surface)] transition-opacity duration-150 hover:opacity-90"
         >
           <Sparkles size={16} />
           Generate brief
@@ -150,8 +167,8 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
       </form>
 
       {/* Footer note */}
-      <p className="mt-4 text-center font-data text-[10px] text-[var(--c-text-ghost)]">
-        ~4 seconds to generate · ₹2.30 per brief · No data stored
+      <p className="mt-4 text-center font-data text-[12px] text-[var(--c-text-ghost)]">
+        10–90 seconds to generate · ₹2.30 per brief · No data stored
       </p>
     </div>
   )
@@ -159,5 +176,5 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
 
 function inputClasses(hasError: boolean) {
   const border = hasError ? 'border-[var(--c-red)]' : 'border-[var(--c-border)]'
-  return `w-full rounded-[var(--radius-sm)] border ${border} bg-[var(--c-surface)] px-[14px] py-[11px] text-[13px] text-[var(--c-text)] placeholder:text-[var(--c-text-ghost)] transition-[border-color,box-shadow] duration-150 focus:border-[var(--c-amber)] focus:shadow-[var(--shadow-focus)] focus:outline-none`
+  return `w-full rounded-[7px] border ${border} bg-[var(--c-surface)] px-[18px] py-[16px] text-[16px] text-[var(--c-text)] placeholder:text-[var(--c-text-ghost)] transition-[border-color,box-shadow] duration-150 focus:border-[var(--c-amber)] focus:shadow-[var(--shadow-focus)] focus:outline-none`
 }
