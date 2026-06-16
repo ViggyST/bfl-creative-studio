@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BFL Creative Studio — Form (Desktop Mockup v1.1.1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-bg:#FAF8F4;--c-surface:#FFFFFF;--c-surface-2:#F3EFE9;--c-surface-3:#F7F4EF;
+  --c-border:#E8E2D9;--c-border-subtle:#F0EBE3;
+  --c-text:#2B2723;--c-text-muted:#6B655F;--c-text-faint:#A39C92;--c-text-ghost:#CCC4B8;
+  --c-amber:#BA8A3C;--c-amber-soft:rgba(186,138,60,0.08);
+  --c-green:#1A8F4E;--c-green-soft:rgba(26,143,78,0.10);
+  --c-red:#D9534F;--c-blue:#3568D4;
+  --font-d:'Space Grotesk',sans-serif;--font-b:'DM Sans',sans-serif;--font-m:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--c-bg);color:var(--c-text);font-family:var(--font-b);font-size:15px;line-height:1.6;min-height:100vh}
+
+/* header bar */
+.header{height:56px;background:var(--c-surface);border-bottom:1px solid var(--c-border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 32px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-weight:600;font-size:15px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c-amber)}
+.header-right{font-family:var(--font-m);font-size:12px;color:var(--c-text-faint)}
+
+/* main */
+.page{display:flex;flex-direction:column;align-items:center;padding:88px 32px 120px}
+.eyebrow{font-family:var(--font-m);font-size:12px;letter-spacing:0.14em;color:var(--c-text-faint);
+  text-transform:uppercase;margin-bottom:18px}
+h1{font-family:var(--font-d);font-weight:600;font-size:42px;letter-spacing:-0.7px;text-align:center}
+.underline{width:52px;height:3px;background:var(--c-amber);border-radius:2px;margin:14px 0 22px}
+.sub{font-family:var(--font-b);font-size:14px;color:var(--c-text-faint);text-align:center;
+  line-height:1.7;max-width:520px;margin-bottom:48px}
+
+.form{width:100%;max-width:760px;display:flex;flex-direction:column;gap:28px}
+
+/* intent chips */
+.field-label-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.field-label{font-family:var(--font-m);font-size:12px;letter-spacing:0.08em;color:var(--c-text-faint);
+  text-transform:uppercase}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{font-family:var(--font-m);font-size:13px;padding:10px 20px;border-radius:9999px;
+  border:1px solid var(--c-border);background:var(--c-surface);color:var(--c-text-faint)}
+.chip.active{background:var(--c-amber-soft);border-color:var(--c-amber);color:var(--c-amber)}
+
+/* required / optional tags */
+.tag{font-family:var(--font-m);font-size:11px;letter-spacing:0.06em;padding:3px 10px;
+  border-radius:9999px;text-transform:uppercase}
+.tag.required{color:var(--c-amber);background:var(--c-amber-soft)}
+.tag.optional{color:var(--c-text-faint);background:var(--c-surface-2)}
+
+/* inputs */
+input[type=text],textarea{width:100%;font-family:var(--font-b);font-size:16px;color:var(--c-text);
+  background:var(--c-surface);border:1px solid var(--c-border);border-radius:7px;
+  padding:16px 18px}
+input::placeholder,textarea::placeholder{color:var(--c-text-ghost)}
+input:focus,textarea:focus{outline:none;border-color:var(--c-amber);
+  box-shadow:0 0 0 4px rgba(186,138,60,0.12)}
+textarea{min-height:140px;resize:none;line-height:1.6;font-family:var(--font-b)}
+
+/* generate button */
+.generate{width:100%;height:58px;background:var(--c-amber);color:#FFFFFF;border:none;
+  border-radius:7px;font-family:var(--font-d);font-weight:600;font-size:16px;letter-spacing:-0.1px;
+  display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer}
+.generate:hover{opacity:0.92}
+.spark{font-size:16px}
+
+.footer-note{font-family:var(--font-m);font-size:12px;color:var(--c-text-ghost);
+  text-align:center;margin-top:28px}
+
+/* annotation badges (mockup-only — remove for build) */
+.note{position:absolute;font-family:var(--font-m);font-size:11px;color:var(--c-blue);
+  background:rgba(53,104,212,0.08);border:1px solid rgba(53,104,212,0.25);
+  border-radius:6px;padding:4px 9px;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo"><span class="dot"></span>BFL Creative Studio</div>
+  <div class="header-right">Insta EMI Card · Marketing</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Creative intelligence tool</div>
+  <h1>Generate a creative brief</h1>
+  <div class="underline"></div>
+  <p class="sub">Backed by 82 analysed Insta EMI Card creatives · Confound-corrected CTR data<br>
+  Fill 4 fields. Get a production-ready brief in ~4 seconds.</p>
+
+  <div class="form">
+    <div>
+      <div class="field-label-row"><span class="field-label">Campaign intent</span></div>
+      <div class="chips">
+        <span class="chip active">Auto-detect</span>
+        <span class="chip">Card-Led</span>
+        <span class="chip">Product-Led</span>
+        <span class="chip">Offer-Led</span>
+        <span class="chip">Festive/Event</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="field-label-row">
+        <span class="field-label">Product / focus</span>
+        <span class="tag required">Required</span>
+      </div>
+      <input type="text" placeholder="e.g. Voltas AC — summer theme, iPhone 16, Card Hero">
+    </div>
+
+    <div>
+      <div class="field-label-row">
+        <span class="field-label">Offer</span>
+        <span class="tag required">Required</span>
+      </div>
+      <input type="text" placeholder="e.g. ₹2,000 cashback + Zero Down Payment">
+    </div>
+
+    <div>
+      <div class="field-label-row">
+        <span class="field-label">Context</span>
+        <span class="tag optional">Optional</span>
+      </div>
+      <textarea placeholder="Audience notes, seasonal event, tone, competitor angle…"></textarea>
+    </div>
+
+    <button class="generate"><span class="spark">✦</span> Generate brief</button>
+  </div>
+
+  <div class="footer-note">~4 seconds to generate · ₹2.30 per brief · No data stored</div>
+</div>
+
+</body>
+</html>

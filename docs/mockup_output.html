@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BFL Creative Studio — Output (Desktop Mockup v1.1.1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-bg:#FAF8F4;--c-surface:#FFFFFF;--c-surface-2:#F3EFE9;--c-surface-3:#F7F4EF;
+  --c-border:#E8E2D9;--c-border-subtle:#F0EBE3;
+  --c-text:#2B2723;--c-text-muted:#6B655F;--c-text-faint:#A39C92;--c-text-ghost:#CCC4B8;
+  --c-amber:#BA8A3C;--c-amber-soft:rgba(186,138,60,0.08);
+  --c-green:#1A8F4E;--c-green-soft:rgba(26,143,78,0.10);
+  --c-red:#D9534F;--c-red-soft:rgba(217,76,63,0.06);
+  --c-blue:#3568D4;--c-blue-soft:rgba(53,104,212,0.08);
+  --font-d:'Space Grotesk',sans-serif;--font-b:'DM Sans',sans-serif;--font-m:'JetBrains Mono',monospace;
+  --shadow:0 1px 2px rgba(43,39,35,0.04),0 2px 6px rgba(43,39,35,0.04);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--c-bg);color:var(--c-text);font-family:var(--font-b);font-size:15px;line-height:1.65}
+
+/* header */
+.header{height:56px;background:var(--c-surface);border-bottom:1px solid var(--c-border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 32px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-weight:600;font-size:15px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c-amber)}
+.header-right{font-family:var(--font-m);font-size:12px;color:var(--c-text-faint)}
+
+/* page */
+.page{max-width:1140px;margin:0 auto;padding:40px 48px 100px;display:flex;flex-direction:column;gap:24px}
+
+.label{font-family:var(--font-m);font-size:12px;letter-spacing:0.1em;color:var(--c-amber);
+  text-transform:uppercase}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.copy-btn{font-family:var(--font-m);font-size:12px;color:var(--c-text-faint);
+  border:1px solid var(--c-border);background:var(--c-surface);border-radius:6px;
+  padding:6px 12px;cursor:pointer;display:flex;align-items:center;gap:6px}
+
+.card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:8px;
+  box-shadow:var(--shadow);padding:28px 32px}
+
+/* brief request card */
+.brief-card{background:var(--c-surface-2);border-top:3px solid var(--c-amber);
+  border-left:1px solid var(--c-border);border-right:1px solid var(--c-border);
+  border-bottom:1px solid var(--c-border);border-radius:8px;padding:22px 32px;
+  display:flex;align-items:flex-start;gap:36px}
+.new-brief{font-family:var(--font-m);font-size:13px;color:var(--c-text-muted);
+  background:var(--c-bg);border:1px solid var(--c-border);border-radius:9999px;
+  padding:9px 18px;white-space:nowrap;flex-shrink:0}
+.brief-grid{display:grid;grid-template-columns:auto 1fr;gap:8px 20px;flex:1;align-items:baseline}
+.brief-label{font-family:var(--font-m);font-size:11px;letter-spacing:0.08em;
+  color:var(--c-text-faint);text-transform:uppercase}
+.brief-value{font-family:var(--font-b);font-size:15px;color:var(--c-text)}
+.brief-badges{display:flex;flex-direction:column;gap:10px;align-items:flex-end;flex-shrink:0}
+
+.pill{font-family:var(--font-m);font-size:12px;border-radius:9999px;padding:6px 16px;
+  letter-spacing:0.04em}
+.pill.amber{background:var(--c-amber-soft);color:var(--c-amber)}
+.pill.green{background:var(--c-green-soft);color:var(--c-green)}
+.pill.blue{background:var(--c-blue-soft);color:var(--c-blue)}
+
+/* creative type hero */
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:32px}
+.hero-pills{display:flex;gap:10px;margin-bottom:18px}
+.creative-name{font-family:var(--font-d);font-weight:600;font-size:44px;letter-spacing:-1px}
+.underline{width:56px;height:3px;background:var(--c-amber);border-radius:2px;margin:16px 0 22px}
+.ctr-block{text-align:right;flex-shrink:0}
+.ctr-number{font-family:var(--font-d);font-weight:600;font-size:34px;letter-spacing:-0.6px;color:var(--c-green)}
+.ctr-label{font-family:var(--font-m);font-size:12px;color:var(--c-text-faint);margin-top:4px}
+.rationale{font-size:15px;color:var(--c-text-muted);line-height:1.75;max-width:78ch;margin-bottom:18px}
+.intent-signal{font-family:var(--font-m);font-size:13px;color:var(--c-text-faint);
+  display:flex;align-items:baseline;gap:8px}
+.intent-signal .bd{width:6px;height:6px;border-radius:50%;background:var(--c-blue);flex-shrink:0;
+  margin-top:5px}
+
+/* image prompts */
+.tabs{display:flex;gap:28px;border-bottom:1px solid var(--c-border-subtle);margin-bottom:18px}
+.tab{font-family:var(--font-m);font-size:13px;padding-bottom:12px;color:var(--c-text-faint);
+  border-bottom:2px solid transparent}
+.tab.active{color:var(--c-green);border-bottom-color:var(--c-green)}
+.prompt-box{background:var(--c-surface-3);border:1px solid var(--c-border-subtle);
+  border-radius:6px;padding:20px 24px;font-family:var(--font-m);font-size:13px;
+  color:var(--c-text-muted);line-height:1.8}
+
+/* copy formula */
+.copy-grid{display:grid;grid-template-columns:1fr 2fr 1fr;gap:16px}
+.copy-box{background:var(--c-surface-3);border:1px solid var(--c-border-subtle);
+  border-radius:6px;padding:18px 20px}
+.copy-label{font-family:var(--font-m);font-size:11px;letter-spacing:0.08em;
+  color:var(--c-text-faint);text-transform:uppercase;margin-bottom:10px}
+.copy-text{font-family:var(--font-m);font-size:14px;line-height:1.7}
+.copy-text.cta{color:var(--c-blue)}
+.copy-text.body-text{color:#A8762E}
+
+/* layout brief */
+.lb-card{border-left:3px solid var(--c-amber)}
+.lb-row{display:flex;gap:32px;padding:16px 0;border-bottom:1px solid var(--c-border-subtle)}
+.lb-row:last-child{border-bottom:none;padding-bottom:0}
+.lb-row:first-child{padding-top:0}
+.lb-label{font-family:var(--font-m);font-size:11px;letter-spacing:0.08em;
+  color:var(--c-text-faint);text-transform:uppercase;min-width:140px;flex-shrink:0;
+  padding-top:2px}
+.lb-content{font-size:14.5px;color:var(--c-text-muted);line-height:1.75}
+.lb-chips{display:flex;gap:8px;flex-wrap:wrap}
+.lb-chip{font-family:var(--font-m);font-size:12px;background:var(--c-green-soft);
+  color:var(--c-green);border-radius:9999px;padding:6px 14px}
+.most-important{font-family:var(--font-m);font-size:11px;letter-spacing:0.06em;
+  background:var(--c-amber-soft);color:var(--c-amber);border-radius:9999px;
+  padding:4px 12px;text-transform:uppercase;margin-left:12px}
+
+/* reference creatives */
+.ref-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.ref-card{border:1px solid var(--c-border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow)}
+.ref-card.best{border-color:var(--c-amber)}
+.ref-thumb{height:120px;background:var(--c-surface-2);position:relative;
+  display:flex;align-items:center;justify-content:center;color:var(--c-text-ghost);
+  font-family:var(--font-m);font-size:12px}
+.ref-ctr{position:absolute;top:8px;right:8px;font-family:var(--font-m);font-size:11px;
+  font-weight:500;border-radius:9999px;padding:3px 10px}
+.ref-ctr.green{background:var(--c-green-soft);color:var(--c-green)}
+.ref-ctr.amber{background:var(--c-amber-soft);color:var(--c-amber)}
+.ref-name{font-family:var(--font-m);font-size:11px;color:var(--c-text-faint);
+  padding:10px 12px;line-height:1.5}
+.ref-footer{font-family:var(--font-m);font-size:11px;color:var(--c-text-ghost);
+  margin-top:14px}
+
+/* include / avoid */
+.ia-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.ia-header{font-family:var(--font-m);font-size:12px;letter-spacing:0.08em;
+  text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ia-header.inc{color:var(--c-green)}
+.ia-header.avo{color:var(--c-red)}
+.ia-list{display:flex;flex-direction:column;gap:8px}
+.ia-item{font-size:13.5px;color:var(--c-text-muted);line-height:1.6;
+  border-radius:5px;padding:10px 14px;border-left:3px solid}
+.ia-item.inc{background:var(--c-green-soft);border-left-color:var(--c-green)}
+.ia-item.avo{background:var(--c-red-soft);border-left-color:var(--c-red)}
+
+/* CTR waterfall */
+.wf-row{display:flex;align-items:center;gap:16px;margin-bottom:10px}
+.wf-label{font-family:var(--font-m);font-size:12px;color:var(--c-text-faint);
+  min-width:230px;flex-shrink:0}
+.wf-row.lift .wf-label{color:var(--c-text)}
+.wf-bar-track{flex:1;display:flex;align-items:center}
+.wf-bar{height:22px;border-radius:4px;display:flex;align-items:center;
+  padding:0 10px;font-family:var(--font-m);font-size:11px}
+.wf-bar.base{background:var(--c-surface-2);color:var(--c-text-faint);width:130px}
+.wf-bar.lift{background:var(--c-green-soft);color:var(--c-green)}
+.wf-total{display:flex;justify-content:flex-end;align-items:baseline;gap:10px;
+  border-top:1px solid var(--c-border-subtle);margin-top:18px;padding-top:18px}
+.wf-total-num{font-family:var(--font-d);font-weight:600;font-size:28px;
+  letter-spacing:-0.5px;color:var(--c-green)}
+.wf-total-label{font-family:var(--font-m);font-size:12px;color:var(--c-text-faint)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo"><span class="dot"></span>BFL Creative Studio</div>
+  <div class="header-right">Insta EMI Card · Marketing</div>
+</div>
+
+<div class="page">
+
+  <!-- Brief request card -->
+  <div class="brief-card">
+    <div class="new-brief">← New brief</div>
+    <div class="brief-grid">
+      <span class="brief-label">Product</span><span class="brief-value">Mobile Creatives</span>
+      <span class="brief-label">Offer</span><span class="brief-value">₹1,000 cashback + Easy EMIs</span>
+      <span class="brief-label">Context</span><span class="brief-value">Smartphone-interested EMI audience — goal is to drive clicks that convert on the landing page</span>
+      <span class="brief-label">Intent</span><span class="brief-value">Offer-Led (auto-detected)</span>
+    </div>
+    <div class="brief-badges">
+      <span class="pill amber">Offer Highlight</span>
+      <span class="pill green">~3.6% CTR</span>
+    </div>
+  </div>
+
+  <!-- 01 Creative Type -->
+  <div class="card">
+    <div class="hero-pills">
+      <span class="pill amber">Offer highlight</span>
+      <span class="pill blue">● Auto-detected · Offer-Led</span>
+    </div>
+    <div class="hero-top">
+      <div>
+        <div class="creative-name">Offer Highlight</div>
+        <div class="underline"></div>
+      </div>
+      <div class="ctr-block">
+        <div class="ctr-number">~3.6%</div>
+        <div class="ctr-label">Estimated CTR ±0.5%</div>
+      </div>
+    </div>
+    <p class="rationale">₹1,000 cashback is the dominant input signal and primary hook for a smartphone-interested EMI audience. Offer Highlight is the correct type: the ₹ number anchors the scroll-stop, the card is the enabler, and the ₹3L loan limit provides secondary credibility. Card Spotlight was considered but rejected — a live offer exists, and Offer Highlight will outperform at this audience's intent level. Generic Cluster is explicitly excluded.</p>
+    <div class="intent-signal"><span class="bd"></span>Intent signal: the input specifies a cashback offer (₹1,000 CB) without naming a specific product, triggering Offer-Led classification over Product-Led.</div>
+  </div>
+
+  <!-- 02 Image Gen Prompts -->
+  <div class="card">
+    <div class="section-header">
+      <span class="label">Image gen prompts</span>
+      <button class="copy-btn">Copy</button>
+    </div>
+    <div class="tabs">
+      <span class="tab active">GPT-4o</span>
+      <span class="tab">Gemini</span>
+      <span class="tab">Midjourney</span>
+    </div>
+    <div class="prompt-box">A premium mobile ad creative for a financial product called the Bajaj Finserv Insta EMI Card. The background is a deep navy to charcoal gradient, very dark and rich. Centred in the upper portion is a bold circular gold-outlined badge reading "₹1,000 Cashback" in large white bold numerals. Below the badge, a sleek modern flagship-style smartphone (no brand logo) is shown at a 3/4 angle, floating with a soft drop shadow, occupying about 40% of the lower frame. On the right side, four pill-shaped benefit chips are stacked vertically: "₹999/month EMI", "₹0 Down Payment", "₹0 Annual Fee", "Up to ₹3 Lakh Limit". In the bottom-left corner, the Bajaj Finserv Insta EMI Card is shown at a slight angle, fully visible. The Bajaj Finserv logo appears in white in the top-right corner. The overall mood is premium, dark, aspirational — like a flagship phone launch combined with a fintech card offer.</div>
+  </div>
+
+  <!-- 03 Copy Formula -->
+  <div class="card">
+    <div class="section-header">
+      <span class="label">Copy formula</span>
+      <button class="copy-btn">Copy all</button>
+    </div>
+    <div class="copy-grid">
+      <div class="copy-box">
+        <div class="copy-label">Headline</div>
+        <div class="copy-text">Shop smart. Pay in easy EMIs. Get ₹1,000 back.</div>
+      </div>
+      <div class="copy-box">
+        <div class="copy-label">Body</div>
+        <div class="copy-text body-text">Get the smartphone you want — starting at just ₹999/month. ₹0 down payment. ₹0 annual fee. Up to ₹3,00,000 limit, approved in seconds.</div>
+      </div>
+      <div class="copy-box">
+        <div class="copy-label">Cta</div>
+        <div class="copy-text cta">Check your limit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 Layout Brief -->
+  <div class="card lb-card">
+    <div class="section-header">
+      <span class="label">Layout brief<span class="most-important">Most important</span></span>
+      <button class="copy-btn">Copy</button>
+    </div>
+    <div class="lb-row">
+      <div class="lb-label">Hero</div>
+      <div class="lb-content">Large circular cashback badge — "₹1,000 Cashback" — occupying ~35% of the upper-centre frame, gold-outlined on a deep navy/charcoal background. The ₹1,000 numeral must be rendered at minimum 72px bold so it's legible at mobile thumb size without zoom. Below the badge, a flagship smartphone (generic, no specific brand) angled 3/4 view occupies 40% of the lower-centre frame — Layer 1 supporting context, signalling category relevance immediately.</div>
+    </div>
+    <div class="lb-row">
+      <div class="lb-label">Card</div>
+      <div class="lb-content">Bottom-left corner, approximately 18–22% of frame width. Card angled at 10–15 degrees for dynamism. Must be fully legible — do not crop card face. Default bottom-left placement (data: 2.97% vs 2.75% for bottom-right).</div>
+    </div>
+    <div class="lb-row">
+      <div class="lb-label">Background</div>
+      <div class="lb-content">Deep navy to charcoal gradient (#0D1B2A to #1C2B3A), with a very subtle radial bokeh glow behind the cashback badge in warm gold/amber (#C9A84C at 30% opacity). Not a full festive bokeh — restrained, premium. No white or light background — smartphone products pop best against dark.</div>
+    </div>
+    <div class="lb-row">
+      <div class="lb-label">Chips</div>
+      <div class="lb-content">
+        <div class="lb-chips">
+          <span class="lb-chip">₹1,000 Cashback on First Purchase</span>
+          <span class="lb-chip">EMI Starting ₹999/month</span>
+          <span class="lb-chip">₹0 Down Payment</span>
+          <span class="lb-chip">₹0 Annual Fee</span>
+          <span class="lb-chip">Up to ₹3,00,000 Loan Limit</span>
+        </div>
+      </div>
+    </div>
+    <div class="lb-row">
+      <div class="lb-label">Density</div>
+      <div class="lb-content">High — minimum 5 visible text elements (cashback badge, EMI chip, ₹0 Down chip, ₹0 Annual Fee chip, ₹3L limit chip). Chips pill-shaped, white text on semi-transparent dark background with a 1px white border, arranged vertically in the right 30% column. Headline copy placed above the phone image in 24–28px bold white.</div>
+    </div>
+    <div class="lb-row">
+      <div class="lb-label">Brand logo</div>
+      <div class="lb-content">Bajaj Finserv logo, top-right corner, white version, approximately 80px wide. No partner logo — this is a card-direct offer creative, not co-branded.</div>
+    </div>
+  </div>
+
+  <!-- 05 Reference Creatives -->
+  <div class="card">
+    <span class="label">Reference creatives</span>
+    <div style="height:18px"></div>
+    <div class="ref-grid">
+      <div class="ref-card best">
+        <div class="ref-thumb">thumbnail<span class="ref-ctr green">3.9%</span></div>
+        <div class="ref-name">Amazon ₹500 Gift Card — Offer Led</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-thumb">thumbnail<span class="ref-ctr green">5.5%</span></div>
+        <div class="ref-name">Card on Center Stage — Benefits</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-thumb">thumbnail<span class="ref-ctr amber">4.5%</span></div>
+        <div class="ref-name">Card Specific — Benefits Highlight</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-thumb">thumbnail<span class="ref-ctr green">5.0%</span></div>
+        <div class="ref-name">Card in Center — Core Benefits</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-thumb">thumbnail<span class="ref-ctr green">5.8%</span></div>
+        <div class="ref-name">Card in Center Stage — Benefits</div>
+      </div>
+    </div>
+    <div class="ref-footer">PNG thumbnails from /public/creatives/ · gold border = best match</div>
+  </div>
+
+  <!-- 06 Include / Avoid -->
+  <div class="card">
+    <span class="label">Include / avoid</span>
+    <div style="height:18px"></div>
+    <div class="ia-grid">
+      <div>
+        <div class="ia-header inc">✓ Include</div>
+        <div class="ia-list">
+          <div class="ia-item inc">Circular cashback badge with ₹1,000 prominently — gold outline, bold numeral</div>
+          <div class="ia-item inc">Specific EMI per month figure — use ₹999/month as the anchor</div>
+          <div class="ia-item inc">₹0 Down Payment chip — mandatory for smartphone EMI audience</div>
+          <div class="ia-item inc">₹0 Annual Fee chip — strong differentiator, always show</div>
+          <div class="ia-item inc">₹3,00,000 loan limit — anchor number, always visible</div>
+          <div class="ia-item inc">Premium smartphone visual — 3/4 angled, floating, no specific brand</div>
+        </div>
+      </div>
+      <div>
+        <div class="ia-header avo">✗ Avoid</div>
+        <div class="ia-list">
+          <div class="ia-item avo">Generic "Easy EMI" copy without a specific monthly ₹ figure</div>
+          <div class="ia-item avo">Light or white background — smartphone products lose contrast</div>
+          <div class="ia-item avo">Card absent or cropped — single largest CTR penalty (−1.48%)</div>
+          <div class="ia-item avo">Multi-product cluster — any attempt to show 2+ phones or a grid</div>
+          <div class="ia-item avo">Fabricating a cashback above ₹1,000 — do not round up to ₹2,000</div>
+          <div class="ia-item avo">Niche category product visual (camera, smartwatch)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 CTR Waterfall -->
+  <div class="card">
+    <span class="label">CTR score waterfall</span>
+    <div style="height:24px"></div>
+    <div class="wf-row">
+      <div class="wf-label">Baseline</div>
+      <div class="wf-bar-track"><div class="wf-bar base">2.50%</div></div>
+    </div>
+    <div class="wf-row lift">
+      <div class="wf-label">Cashback ≥ ₹1,000 visible</div>
+      <div class="wf-bar-track"><div class="wf-bar lift" style="width:60px">+0.29%</div></div>
+    </div>
+    <div class="wf-row lift">
+      <div class="wf-label">Card visible in creative</div>
+      <div class="wf-bar-track"><div class="wf-bar lift" style="width:90px">+0.80%</div></div>
+    </div>
+    <div class="wf-row lift">
+      <div class="wf-label">High text density (3+ elements)</div>
+      <div class="wf-bar-track"><div class="wf-bar lift" style="width:110px">+1.03%</div></div>
+    </div>
+    <div class="wf-row lift">
+      <div class="wf-label">Loan limit ₹3L shown</div>
+      <div class="wf-bar-track"><div class="wf-bar lift" style="width:70px">+0.53%</div></div>
+    </div>
+    <div class="wf-row lift">
+      <div class="wf-label">Affordability messaging</div>
+      <div class="wf-bar-track"><div class="wf-bar lift" style="width:160px">+1.73%</div></div>
+    </div>
+    <div class="wf-row lift">
+      <div class="wf-label">EMI/month shown</div>
+      <div class="wf-bar-track"><div class="wf-bar lift" style="width:50px">+0.26%</div></div>
+    </div>
+    <div class="wf-total">
+      <span class="wf-total-num">~3.6%</span>
+      <span class="wf-total-label">estimated</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
