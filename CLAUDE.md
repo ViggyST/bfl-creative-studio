@@ -77,18 +77,16 @@ enforced — see docs/KNOWN_ISSUES.md).
 | S7 | Final polish + README + deploy | README.md, Vercel deploy | 3 real briefs <10s, 0 console errors, shared URL works |
 
 ## 7. Current Status
-**Last completed: S5 (UI components), 15 Jun 2026. Housekeeping pass, 15 Jun 2026.**
-All 6 UI files built, debugged, and verified working live end-to-end (browser-tested,
-full 7-section brief rendered correctly with real Anthropic output). Since S5, in the
-same live end-to-end test:
-- public/creatives/ populated with all 82 PNGs — rendering verified, no 404s.
-  KNOWN_ISSUES #1 resolved.
-- max_tokens bumped 4096→8192 to prevent JSON truncation on verbose briefs — verified.
-- CTR waterfall math issue reconfirmed (estimated_ctr doesn't reconcile with
-  baseline + Σ lifts) — still open, scoped to S6b.
+**Last completed: S6 (desktop layout + type scale + CTR fix), 16 Jun 2026.**
+All 7 sections of BriefOutput restyled to desktop spec (1140px max-width, 44px
+Creative Type heading, section cards px-8 py-7, Copy Formula 3-col grid, Layout Brief
+amber left border, CTR Signal Analysis with proportional bars + disclaimer).
+BriefForm expanded to 760px with Required/Optional tags, larger inputs and chips.
+systemPrompt.ts updated with INSTRUCTION 08 (CTR holistic prediction, not element sum).
+Build verified 0 errors. Committed b172d00, pushed to main.
 
-**S6a (visual polish) is PAUSED** pending a UIUX direction discussion with ST. Do not
-begin S6a until that discussion concludes.
+**Next: S6c** — verify all 82 filenames in lib/creativeLibrary.ts match public/creatives/
+exactly (case-sensitive). Then S7: README + Vercel deploy.
 
 ## 8. Tool Division
 | | Claude Code | Cursor |
