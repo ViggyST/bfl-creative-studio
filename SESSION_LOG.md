@@ -46,3 +46,61 @@ S5 (UI components) completed 15 Jun 2026 — see CLAUDE.md §7.
   aligned with archetype benchmarks.
 
 Build: `npm run build` = 0 errors. Committed `b172d00`, pushed to main.
+
+---
+
+## 22 Jun 2026 — Desktop Composition Pass (S6c layout phase)
+
+Root cause: all components were centring independently with no unified page shell, causing
+content to float at different widths (BriefOutput was 1140px, BriefForm was 760px, header
+was full-bleed with px-8 padding). At 1440px this looked unanchored.
+
+**Phase 1 — `app/globals.css`**
+- Added page shell tokens to `:root`: `--page-max: 1120px`, `--page-pad-x: clamp(24px, 4vw, 64px)`,
+  plus `--section-gap`, `--card-pad-y/x`, `--output-bottom-pad` as slot tokens.
+- Expanded `*` box-sizing rule to include `::before`/`::after`.
+- Added `.page-shell` and `.prose-block` to `@layer utilities`. `.page-shell` uses
+  `width: min(var(--page-max), calc(100% - (var(--page-pad-x) * 2)))` for a responsive
+  1120px constraint with fluid edge padding.
+
+**Phase 2 — `app/page.tsx`**
+- HeaderBar: removed raw `px-8`, added inner `page-shell` wrapper div so header content
+  aligns to the same 1120px rail as output sections.
+
+**Phase 3 — `components/BriefOutput.tsx` (output wrapper + brief card)**
+- Replaced `max-w-[1140px] px-12 py-10` content div with single `page-shell pt-4 pb-12`
+  wrapper enclosing both the brief card and all section cards.
+- BriefRequestCard redesigned: `py-[14px] px-6`, flex-row with fixed 110px "← New brief"
+  area, vertical divider, `grid-cols-2 gap-x-8 gap-y-2` label/value grid, right-aligned
+  badges. Labels 9px, values 12px.
+
+**Phase 4 — Section cards**
+- SectionCard: `px-6 py-5` (from px-8 py-7). Section label `text-[10px]`.
+- Sections container: `mt-5 space-y-[18px]` (from gap-6).
+
+**Phase 5 — Section-specific**
+- CreativeType: `space-y-3` wrapper, `max-w-[68ch] leading-[1.6]` rationale, `mt-1` intent signal.
+- ImagePrompts: prompt box `p-4 leading-[1.7] prose-block`, `mt-3` tab-to-box gap.
+- CopyFormula: reverted to stacked `flex-col gap-3` (3-col grid too cramped at 1120px),
+  boxes `p-4`, labels `text-[9px] mb-2`.
+- LayoutBrief: row padding `py-2.5`, label `min-w-[80px] text-[9px]`.
+- ReferenceCreatives: `gap-3` (from gap-4).
+- IncludeAvoid: `gap-8` columns, items `py-2 px-2.5`, `space-y-1.5` list.
+- CTRSignal: `space-y-1` rows, `py-1.5` per row, `h-2` bars with values in adjacent
+  `<span>` outside bar (bars are 8px — too small to contain text), `mt-4` total block,
+  `mt-2` disclaimer.
+
+**Phase 6 — `components/BriefForm.tsx`**
+- Underline: added `mb-4`.
+- Sub-copy: removed `mt-6`, added `mb-8`.
+- Form: `mt-8 → mt-0`, `gap-7 → gap-4`.
+- Campaign Intent wrapper: added `mb-5`.
+- Button: `mt-4 → mt-2`. Footer: `mt-4 → mt-3`.
+
+**`components/CreativeCard.tsx`**
+- Name label: `p-3 → p-2.5`.
+
+Build: `npm run build` = 0 errors. Committed `6bcc413`, pushed to main.
+
+**Next: S6c (original)** — verify all 82 filenames in `lib/creativeLibrary.ts` match
+`public/creatives/` exactly (case-sensitive), then S7 (README + Vercel deploy).
