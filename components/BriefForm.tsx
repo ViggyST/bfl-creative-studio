@@ -45,7 +45,7 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
 
   return (
     <div className="w-full max-w-[760px]">
-      {/* Eyebrow */}
+      {/* Eyebrow — mb-3 */}
       <p className="mb-3 text-center font-data text-[12px] uppercase tracking-[0.12em] text-[var(--c-text-faint)]">
         Creative Intelligence Tool
       </p>
@@ -54,19 +54,21 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
       <h1 className="text-center font-display text-[42px] font-semibold tracking-[-0.7px] text-[var(--c-text)]">
         Generate a creative brief
       </h1>
-      <div className="mx-auto mt-4 h-[3px] w-[52px] bg-[var(--c-amber)]" />
 
-      {/* Sub-copy */}
-      <p className="mt-6 text-center text-[14px] leading-relaxed text-[var(--c-text-faint)]">
+      {/* Underline — mt-4 from h1, mb-4 to sub-copy */}
+      <div className="mx-auto mt-4 mb-4 h-[3px] w-[52px] bg-[var(--c-amber)]" />
+
+      {/* Sub-copy — mb-8 gap to form */}
+      <p className="mb-8 text-center text-[14px] leading-relaxed text-[var(--c-text-faint)]">
         Backed by 82 analysed Insta EMI Card creatives · Confound-corrected CTR data
         <br />
         Fill 4 fields. Get a production-ready brief in ~4 seconds.
       </p>
 
-      {/* Form */}
-      <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-7">
-        {/* Campaign Intent */}
-        <div>
+      {/* Form — gap-4 between all field groups */}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* Campaign Intent — mb-5 extra gap before Product */}
+        <div className="mb-5">
           <div className="mb-2 flex items-baseline justify-between">
             <label className="font-data text-[12px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">
               Campaign Intent
@@ -156,18 +158,18 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
           />
         </div>
 
-        {/* Generate button */}
+        {/* Generate button — mt-2 extra gap from Context */}
         <button
           type="submit"
-          className="mt-4 flex w-full items-center justify-center gap-2 rounded-[7px] bg-[var(--c-amber)] px-7 py-[18px] font-display text-[16px] font-semibold tracking-[-0.1px] text-[var(--c-surface)] transition-opacity duration-150 hover:opacity-90"
+          className="mt-2 flex w-full items-center justify-center gap-2 rounded-[7px] bg-[var(--c-amber)] px-7 py-[18px] font-display text-[16px] font-semibold tracking-[-0.1px] text-[var(--c-surface)] transition-opacity duration-150 hover:opacity-90"
         >
           <Sparkles size={16} />
           Generate brief
         </button>
       </form>
 
-      {/* Footer note */}
-      <p className="mt-4 text-center font-data text-[12px] text-[var(--c-text-ghost)]">
+      {/* Footer note — mt-3 */}
+      <p className="mt-3 text-center font-data text-[12px] text-[var(--c-text-ghost)]">
         10–90 seconds to generate · ₹2.30 per brief · No data stored
       </p>
     </div>

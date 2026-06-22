@@ -53,9 +53,19 @@
   /* ── Shadow ─────────────────────────────────────── */
   --shadow-card: 0 1px 2px rgba(43, 39, 35, 0.04), 0 1px 1px rgba(43, 39, 35, 0.03);
   --shadow-focus: 0 0 0 3px rgba(186, 138, 60, 0.12);
+
+  /* ── Page Shell ─────────────────────────────────── */
+  --page-max: 1120px;
+  --page-pad-x: clamp(24px, 4vw, 64px);
+  --section-gap: 18px;
+  --card-pad-y: 20px;
+  --card-pad-x: 24px;
+  --output-bottom-pad: 48px;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -77,6 +87,16 @@ body {
   }
   .font-data {
     font-family: var(--font-mono), monospace;
+  }
+  .page-shell {
+    width: min(var(--page-max), calc(100% - (var(--page-pad-x) * 2)));
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+  .prose-block {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 }
 @keyframes loadbar {

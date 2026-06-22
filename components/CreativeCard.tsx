@@ -32,7 +32,7 @@ export default function CreativeCard({ creative, isBestMatch, highPerformer }: C
           {creative.ctr.toFixed(1)}%
         </span>
       </div>
-      <p className="p-3 font-data text-[11px] leading-[1.5] text-[var(--c-text-faint)]">
+      <p className="p-2.5 font-data text-[11px] leading-[1.5] text-[var(--c-text-faint)]">
         {creative.display_name}
       </p>
     </div>

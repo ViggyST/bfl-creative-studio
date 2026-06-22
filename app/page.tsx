@@ -91,16 +91,18 @@ export default function Home() {
 
 function HeaderBar() {
   return (
-    <header className="flex h-[56px] items-center justify-between border-b border-[var(--c-border)] bg-[var(--c-surface)] px-8">
-      <div className="flex items-center gap-2">
-        <span className="h-2 w-2 rounded-full bg-[var(--c-amber)]" />
-        <span className="font-display text-[13px] font-semibold tracking-[-0.2px] text-[var(--c-text)]">
-          BFL Creative Studio
+    <header className="h-[56px] border-b border-[var(--c-border)] bg-[var(--c-surface)]">
+      <div className="page-shell flex h-full items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-[var(--c-amber)]" />
+          <span className="font-display text-[15px] font-semibold tracking-[-0.2px] text-[var(--c-text)]">
+            BFL Creative Studio
+          </span>
+        </div>
+        <span className="font-data text-[13px] text-[var(--c-text-faint)]">
+          Insta EMI Card · Marketing
         </span>
       </div>
-      <span className="font-data text-[11px] text-[var(--c-text-faint)]">
-        Insta EMI Card · Marketing
-      </span>
     </header>
   )
 }

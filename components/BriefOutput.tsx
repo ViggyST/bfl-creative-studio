@@ -14,24 +14,26 @@ interface BriefOutputProps {
 export default function BriefOutput({ brief, request, onNewBrief }: BriefOutputProps) {
   return (
     <div className="min-h-screen bg-[var(--c-bg)]">
-      {/* Brief request card — full width, flush to header */}
-      <BriefRequestCard request={request} brief={brief} onNewBrief={onNewBrief} />
-      {/* Content area — centred, max-width, padded */}
-      <div className="mx-auto flex max-w-[1140px] flex-col gap-6 px-12 py-10">
-        <CreativeTypeSection brief={brief} request={request} />
-        <ImagePromptsSection brief={brief} />
-        <CopyFormulaSection brief={brief} />
-        <LayoutBriefSection brief={brief} />
-        <ReferenceCreativesSection brief={brief} />
-        <IncludeAvoidSection brief={brief} />
-        <CTRSignalSection brief={brief} />
+      {/* Phase 3a: single page-shell wraps brief card + all sections */}
+      <div className="page-shell pt-4 pb-12">
+        <BriefRequestCard request={request} brief={brief} onNewBrief={onNewBrief} />
+        {/* Phase 3b: mb-5 gap between brief card and sections; Phase 4a: space-y-[18px] */}
+        <div className="mt-5 space-y-[18px]">
+          <CreativeTypeSection brief={brief} request={request} />
+          <ImagePromptsSection brief={brief} />
+          <CopyFormulaSection brief={brief} />
+          <LayoutBriefSection brief={brief} />
+          <ReferenceCreativesSection brief={brief} />
+          <IncludeAvoidSection brief={brief} />
+          <CTRSignalSection brief={brief} />
+        </div>
       </div>
     </div>
   )
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Brief Request Card
+   Brief Request Card — Phase 3b
    ───────────────────────────────────────────────────────────── */
 
 function BriefRequestCard({
@@ -43,36 +45,50 @@ function BriefRequestCard({
   brief: BriefResponse
   onNewBrief: () => void
 }) {
+  const intentLabel = request.intent
+    ? brief.detected_intent
+    : `${brief.detected_intent} (auto-detected)`
+
   return (
     <div
-      className="flex items-start gap-9 border border-[var(--c-border)] bg-[var(--c-surface-2)] px-8 py-5"
+      className="flex items-start gap-6 border border-[var(--c-border)] bg-[var(--c-surface-2)] px-6 py-[14px]"
       style={{ borderTop: '3px solid var(--c-amber)' }}
     >
-      <button
-        type="button"
-        onClick={onNewBrief}
-        className="shrink-0 rounded-[var(--radius-pill)] border border-[var(--c-border)] bg-[var(--c-bg)] px-[18px] py-[9px] font-data text-[13px] text-[var(--c-text-muted)]"
-      >
-        ← New brief
-      </button>
-
-      <div className="grid flex-1 grid-cols-[auto_1fr] items-baseline gap-x-5 gap-y-2">
-        <span className="font-data text-[11px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">Product</span>
-        <span className="text-[15px] text-[var(--c-text)]">{request.product}</span>
-        <span className="font-data text-[11px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">Offer</span>
-        <span className="text-[15px] text-[var(--c-text)]">{request.offer}</span>
-        {request.context && (
-          <>
-            <span className="font-data text-[11px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">Context</span>
-            <span className="text-[15px] text-[var(--c-text)]">{request.context}</span>
-          </>
-        )}
-        <span className="font-data text-[11px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">Intent</span>
-        <span className="text-[15px] text-[var(--c-text)]">
-          {request.intent ? brief.detected_intent : `${brief.detected_intent} (auto-detected)`}
-        </span>
+      {/* Fixed-width New Brief area */}
+      <div className="w-[110px] shrink-0">
+        <button
+          type="button"
+          onClick={onNewBrief}
+          className="whitespace-nowrap rounded-[var(--radius-pill)] border border-[var(--c-border)] bg-[var(--c-bg)] px-3 py-[6px] font-data text-[11px] text-[var(--c-text-muted)]"
+        >
+          ← New brief
+        </button>
       </div>
 
+      {/* Vertical divider */}
+      <div className="w-px self-stretch bg-[var(--c-border)]" />
+
+      {/* 2×2 label/value grid */}
+      <div className="grid flex-1 grid-cols-2 gap-x-8 gap-y-2">
+        <div>
+          <div className="font-data text-[9px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">Product</div>
+          <div className="text-[12px] text-[var(--c-text)]">{request.product}</div>
+        </div>
+        <div>
+          <div className="font-data text-[9px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">Offer</div>
+          <div className="text-[12px] text-[var(--c-text)]">{request.offer}</div>
+        </div>
+        <div>
+          <div className="font-data text-[9px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">Context</div>
+          <div className="text-[12px] text-[var(--c-text)]">{request.context || '—'}</div>
+        </div>
+        <div>
+          <div className="font-data text-[9px] uppercase tracking-[0.06em] text-[var(--c-text-faint)]">Intent</div>
+          <div className="text-[12px] text-[var(--c-text)]">{intentLabel}</div>
+        </div>
+      </div>
+
+      {/* Right-aligned badges */}
       <div className="flex shrink-0 flex-col items-end gap-2">
         <span className="rounded-[var(--radius-pill)] bg-[var(--c-amber-soft)] px-4 py-[6px] font-data text-[12px] text-[var(--c-amber)]">
           {brief.creative_type}
@@ -86,7 +102,8 @@ function BriefRequestCard({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Shared section card wrapper
+   Shared section card wrapper — Phase 4b
+   px-6 py-5 (24px / 20px), radius-lg, shadow-card
    ───────────────────────────────────────────────────────────── */
 
 function SectionCard({
@@ -104,12 +121,12 @@ function SectionCard({
 }) {
   return (
     <section
-      className="rounded-[8px] border border-[var(--c-border)] bg-[var(--c-surface)] px-8 py-7 shadow-[var(--shadow-card)]"
+      className="rounded-[var(--radius-lg)] border border-[var(--c-border)] bg-[var(--c-surface)] px-6 py-5 shadow-[var(--shadow-card)]"
       style={amberBorderLeft ? { borderLeft: '3px solid var(--c-amber)' } : undefined}
     >
-      <div className="mb-5 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="font-data text-[12px] uppercase tracking-[0.1em] text-[var(--c-amber)]">
+          <span className="font-data text-[10px] uppercase tracking-[0.1em] text-[var(--c-amber)]">
             {label}
           </span>
           {badge && (
@@ -126,7 +143,7 @@ function SectionCard({
 }
 
 /* ─────────────────────────────────────────────────────────────
-   01 — Creative Type
+   01 — Creative Type — Phase 5a
    ───────────────────────────────────────────────────────────── */
 
 function CreativeTypeSection({
@@ -138,44 +155,50 @@ function CreativeTypeSection({
 }) {
   return (
     <SectionCard label="Creative Type">
-      <div className="mb-5 flex gap-3">
-        <span className="rounded-[var(--radius-pill)] bg-[var(--c-amber-soft)] px-4 py-[6px] font-data text-[12px] text-[var(--c-amber)]">
-          {brief.creative_type}
-        </span>
-        <span className="rounded-[var(--radius-pill)] bg-[var(--c-blue-soft)] px-4 py-[6px] font-data text-[12px] text-[var(--c-blue)]">
-          ● Auto-detected · {brief.detected_intent}
-        </span>
-      </div>
-
-      <div className="flex items-start justify-between gap-8">
-        <div>
-          <h2 className="font-display text-[44px] font-semibold tracking-[-1px] text-[var(--c-text)]">
+      <div className="space-y-3">
+        {/* Pill row */}
+        <div className="flex gap-3">
+          <span className="rounded-[var(--radius-pill)] bg-[var(--c-amber-soft)] px-4 py-[6px] font-data text-[12px] text-[var(--c-amber)]">
             {brief.creative_type}
-          </h2>
-          <div className="mt-4 h-[3px] w-[56px] rounded-full bg-[var(--c-amber)]" />
+          </span>
+          <span className="rounded-[var(--radius-pill)] bg-[var(--c-blue-soft)] px-4 py-[6px] font-data text-[12px] text-[var(--c-blue)]">
+            ● Auto-detected · {brief.detected_intent}
+          </span>
         </div>
-        <div className="shrink-0 text-right">
-          <div className="font-display text-[34px] font-semibold tracking-[-0.6px] text-[var(--c-green)]">
-            ~{brief.ctr_score_estimate.estimated_ctr.toFixed(1)}%
+
+        {/* Type name + CTR side by side */}
+        <div className="flex items-start justify-between gap-8">
+          <div>
+            <h2 className="font-display text-[44px] font-semibold tracking-[-1px] text-[var(--c-text)]">
+              {brief.creative_type}
+            </h2>
+            <div className="mt-4 h-[3px] w-[56px] rounded-full bg-[var(--c-amber)]" />
           </div>
-          <div className="mt-1 font-data text-[12px] text-[var(--c-text-faint)]">Estimated CTR ±0.5%</div>
+          <div className="shrink-0 text-right">
+            <div className="font-display text-[34px] font-semibold tracking-[-0.6px] text-[var(--c-green)]">
+              ~{brief.ctr_score_estimate.estimated_ctr.toFixed(1)}%
+            </div>
+            <div className="mt-1 font-data text-[12px] text-[var(--c-text-faint)]">Estimated CTR ±0.5%</div>
+          </div>
         </div>
-      </div>
 
-      <p className="mt-6 max-w-[78ch] text-[15px] leading-[1.75] text-[var(--c-text-muted)]">
-        {brief.creative_type_reason}
-      </p>
+        {/* Rationale */}
+        <p className="max-w-[68ch] text-[15px] leading-[1.6] text-[var(--c-text-muted)]">
+          {brief.creative_type_reason}
+        </p>
 
-      <div className="mt-4 flex items-start gap-2 font-data text-[13px] text-[var(--c-text-faint)]">
-        <span className="mt-1.5 h-[6px] w-[6px] shrink-0 rounded-full bg-[var(--c-blue)]" />
-        {brief.intent_signal}
+        {/* Intent signal */}
+        <div className="mt-1 flex items-start gap-2 font-data text-[13px] text-[var(--c-text-faint)]">
+          <span className="mt-1.5 h-[6px] w-[6px] shrink-0 rounded-full bg-[var(--c-blue)]" />
+          {brief.intent_signal}
+        </div>
       </div>
     </SectionCard>
   )
 }
 
 /* ─────────────────────────────────────────────────────────────
-   02 — Image Gen Prompts
+   02 — Image Gen Prompts — Phase 5b
    ───────────────────────────────────────────────────────────── */
 
 function ImagePromptsSection({ brief }: { brief: BriefResponse }) {
@@ -188,7 +211,7 @@ function ImagePromptsSection({ brief }: { brief: BriefResponse }) {
 
   return (
     <SectionCard label="Image Gen Prompts" copyText={brief.image_prompts[tab]}>
-      <div className="mb-3 flex gap-4 border-b border-[var(--c-border-subtle)]">
+      <div className="flex gap-4 border-b border-[var(--c-border-subtle)]">
         {tabs.map((t) => (
           <button
             key={t.key}
@@ -205,8 +228,9 @@ function ImagePromptsSection({ brief }: { brief: BriefResponse }) {
         ))}
       </div>
 
-      <div className="rounded-[6px] border border-[var(--c-border-subtle)] bg-[var(--c-surface-3)] p-6">
-        <p className="whitespace-pre-wrap font-data text-[13px] leading-[1.8] text-[var(--c-text-muted)]">
+      {/* mt-3 gap between tabs and prompt box */}
+      <div className="mt-3 rounded-[6px] border border-[var(--c-border-subtle)] bg-[var(--c-surface-3)] p-4">
+        <p className="prose-block whitespace-pre-wrap font-data text-[13px] leading-[1.7] text-[var(--c-text-muted)]">
           {brief.image_prompts[tab]}
         </p>
       </div>
@@ -215,7 +239,7 @@ function ImagePromptsSection({ brief }: { brief: BriefResponse }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   03 — Copy Formula
+   03 — Copy Formula — Phase 5c (stacked, not 3-col grid)
    ───────────────────────────────────────────────────────────── */
 
 function CopyFormulaSection({ brief }: { brief: BriefResponse }) {
@@ -224,18 +248,18 @@ function CopyFormulaSection({ brief }: { brief: BriefResponse }) {
 
   return (
     <SectionCard label="Copy Formula" copyText={copyAllText}>
-      <div className="grid grid-cols-[1fr_2fr_1fr] gap-4">
-        <div className="rounded-[6px] border border-[var(--c-border-subtle)] bg-[var(--c-surface-3)] p-5">
-          <div className="mb-3 font-data text-[11px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">Headline</div>
-          <div className="font-data text-[14px] leading-[1.7] text-[var(--c-text)]">{headline}</div>
+      <div className="flex flex-col gap-3">
+        <div className="rounded-[var(--radius-sm)] border border-[var(--c-border-subtle)] bg-[var(--c-surface-3)] p-4">
+          <div className="mb-2 font-data text-[9px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">Headline</div>
+          <div className="font-data text-[14px] leading-[1.6] text-[var(--c-text)]">{headline}</div>
         </div>
-        <div className="rounded-[6px] border border-[var(--c-border-subtle)] bg-[var(--c-surface-3)] p-5">
-          <div className="mb-3 font-data text-[11px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">Body</div>
-          <div className="font-data text-[14px] leading-[1.7] text-[#A8762E]">{body}</div>
+        <div className="rounded-[var(--radius-sm)] border border-[var(--c-border-subtle)] bg-[var(--c-surface-3)] p-4">
+          <div className="mb-2 font-data text-[9px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">Body</div>
+          <div className="font-data text-[14px] leading-[1.6] text-[#A8762E]">{body}</div>
         </div>
-        <div className="rounded-[6px] border border-[var(--c-border-subtle)] bg-[var(--c-surface-3)] p-5">
-          <div className="mb-3 font-data text-[11px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">CTA</div>
-          <div className="font-data text-[14px] leading-[1.7] text-[var(--c-blue)]">{cta}</div>
+        <div className="rounded-[var(--radius-sm)] border border-[var(--c-border-subtle)] bg-[var(--c-surface-3)] p-4">
+          <div className="mb-2 font-data text-[9px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">CTA</div>
+          <div className="font-data text-[14px] leading-[1.6] text-[var(--c-blue)]">{cta}</div>
         </div>
       </div>
     </SectionCard>
@@ -243,7 +267,7 @@ function CopyFormulaSection({ brief }: { brief: BriefResponse }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   04 — Layout Brief
+   04 — Layout Brief — Phase 5d
    ───────────────────────────────────────────────────────────── */
 
 function LayoutBriefSection({ brief }: { brief: BriefResponse }) {
@@ -294,12 +318,12 @@ function LayoutBriefSection({ brief }: { brief: BriefResponse }) {
         {rows.map((row, i) => (
           <div
             key={row.label}
-            className={`flex gap-8 py-4 border-b border-[var(--c-border-subtle)] last:border-b-0 last:pb-0 first:pt-0`}
+            className="flex gap-6 border-b border-[var(--c-border-subtle)] py-2.5 last:border-b-0 last:pb-0 first:pt-0"
           >
-            <div className="min-w-[140px] shrink-0 pt-0.5 font-data text-[11px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">
+            <div className="min-w-[80px] shrink-0 pt-0.5 font-data text-[9px] uppercase tracking-[0.08em] text-[var(--c-text-faint)]">
               {row.label}
             </div>
-            <div className="text-[14.5px] leading-[1.75] text-[var(--c-text-muted)]">{row.content}</div>
+            <div className="text-[14px] leading-[1.7] text-[var(--c-text-muted)]">{row.content}</div>
           </div>
         ))}
       </div>
@@ -308,7 +332,7 @@ function LayoutBriefSection({ brief }: { brief: BriefResponse }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   05 — Reference Creatives
+   05 — Reference Creatives — Phase 5e
    ───────────────────────────────────────────────────────────── */
 
 function ReferenceCreativesSection({ brief }: { brief: BriefResponse }) {
@@ -316,7 +340,7 @@ function ReferenceCreativesSection({ brief }: { brief: BriefResponse }) {
 
   return (
     <SectionCard label="Reference Creatives">
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-5 gap-3">
         {brief.reference_creatives.map((creative, i) => (
           <CreativeCard
             key={creative.filename}
@@ -334,22 +358,22 @@ function ReferenceCreativesSection({ brief }: { brief: BriefResponse }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   06 — Include / Avoid
+   06 — Include / Avoid — Phase 5f
    ───────────────────────────────────────────────────────────── */
 
 function IncludeAvoidSection({ brief }: { brief: BriefResponse }) {
   return (
     <SectionCard label="Include / Avoid">
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-8">
         <div>
-          <h3 className="mb-4 font-data text-[12px] uppercase tracking-[0.08em] text-[var(--c-green)]">
+          <h3 className="mb-3 font-data text-[12px] uppercase tracking-[0.08em] text-[var(--c-green)]">
             ✓ Include
           </h3>
-          <ul className="flex flex-col">
+          <ul className="flex flex-col space-y-1.5">
             {brief.include.map((item, i) => (
               <li
                 key={i}
-                className="mb-2 rounded-[5px] bg-[var(--c-green-soft)] p-3 text-[13.5px] leading-[1.6] text-[var(--c-text-muted)]"
+                className="rounded-[5px] bg-[var(--c-green-soft)] px-2.5 py-2 text-[13.5px] leading-[1.6] text-[var(--c-text-muted)]"
                 style={{ borderLeft: '3px solid var(--c-green)' }}
               >
                 {item}
@@ -358,14 +382,14 @@ function IncludeAvoidSection({ brief }: { brief: BriefResponse }) {
           </ul>
         </div>
         <div>
-          <h3 className="mb-4 font-data text-[12px] uppercase tracking-[0.08em] text-[var(--c-red)]">
+          <h3 className="mb-3 font-data text-[12px] uppercase tracking-[0.08em] text-[var(--c-red)]">
             ✗ Avoid
           </h3>
-          <ul className="flex flex-col">
+          <ul className="flex flex-col space-y-1.5">
             {brief.avoid.map((item, i) => (
               <li
                 key={i}
-                className="mb-2 rounded-[5px] bg-[var(--c-red-soft)] p-3 text-[13.5px] leading-[1.6] text-[var(--c-text-muted)]"
+                className="rounded-[5px] bg-[var(--c-red-soft)] px-2.5 py-2 text-[13.5px] leading-[1.6] text-[var(--c-text-muted)]"
                 style={{ borderLeft: '3px solid var(--c-red)' }}
               >
                 {item}
@@ -379,7 +403,8 @@ function IncludeAvoidSection({ brief }: { brief: BriefResponse }) {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   07 — CTR Signal Analysis
+   07 — CTR Signal Analysis — Phase 5g
+   h-2 bars (8px), values outside bar, space-y-1 rows
    ───────────────────────────────────────────────────────────── */
 
 function CTRSignalSection({ brief }: { brief: BriefResponse }) {
@@ -387,54 +412,62 @@ function CTRSignalSection({ brief }: { brief: BriefResponse }) {
 
   return (
     <SectionCard label="CTR Signal Analysis">
-      <div className="flex flex-col">
+      <div className="space-y-1">
         {/* Baseline row */}
-        <div className="mb-3 flex items-center gap-4">
+        <div className="flex items-center gap-4 py-1.5">
           <span className="min-w-[230px] shrink-0 font-data text-[12px] text-[var(--c-text-faint)]">
             Baseline
           </span>
-          <div className="flex h-[22px] w-[130px] items-center rounded-[4px] bg-[var(--c-surface-2)] px-3 font-data text-[11px] text-[var(--c-text-faint)]">
-            {baseline.toFixed(2)}%
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-[130px] rounded-[4px] bg-[var(--c-surface-2)]" />
+            <span className="font-data text-[11px] text-[var(--c-text-faint)]">
+              {baseline.toFixed(2)}%
+            </span>
           </div>
         </div>
 
         {/* Lift rows */}
         {elements.map((el) => {
-          const barWidth = Math.max(24, Math.round(Math.abs(el.lift) * 100))
+          const barWidth = Math.max(16, Math.round(Math.abs(el.lift) * 100))
           const isNegative = el.lift < 0
           return (
-            <div key={el.feature} className="mb-3 flex items-center gap-4">
+            <div key={el.feature} className="flex items-center gap-4 py-1.5">
               <span
                 className="min-w-[230px] shrink-0 font-data text-[12px] text-[var(--c-text)]"
                 title={el.note}
               >
                 {el.feature}
               </span>
-              <div
-                className={`flex h-[22px] items-center rounded-[4px] px-3 font-data text-[11px] ${
-                  isNegative
-                    ? 'bg-[var(--c-red-soft)] text-[var(--c-red)]'
-                    : 'bg-[var(--c-green-soft)] text-[var(--c-green)]'
-                }`}
-                style={{ width: `${barWidth}px` }}
-              >
-                {el.lift > 0 ? '+' : ''}{el.lift.toFixed(2)}%
+              <div className="flex items-center gap-2">
+                <div
+                  className={`h-2 rounded-[4px] ${
+                    isNegative ? 'bg-[var(--c-red-soft)]' : 'bg-[var(--c-green-soft)]'
+                  }`}
+                  style={{ width: `${barWidth}px` }}
+                />
+                <span
+                  className={`font-data text-[11px] ${
+                    isNegative ? 'text-[var(--c-red)]' : 'text-[var(--c-green)]'
+                  }`}
+                >
+                  {el.lift > 0 ? '+' : ''}{el.lift.toFixed(2)}%
+                </span>
               </div>
             </div>
           )
         })}
+      </div>
 
-        {/* Total row */}
-        <div className="mt-5 flex items-baseline justify-between border-t border-[var(--c-border-subtle)] pt-5">
-          <p className="font-data text-[12px] text-[var(--c-text-faint)]">
-            Lifts are marginal effects — not independently additive. Estimated CTR is a model prediction.
-          </p>
-          <div className="flex items-baseline gap-3">
-            <span className="font-display text-[28px] font-semibold tracking-[-0.5px] text-[var(--c-green)]">
-              ~{estimated_ctr.toFixed(1)}%
-            </span>
-            <span className="font-data text-[12px] text-[var(--c-text-faint)]">estimated</span>
-          </div>
+      {/* Total row — mt-4, disclaimer mt-2 */}
+      <div className="mt-4 flex items-start justify-between border-t border-[var(--c-border-subtle)] pt-4">
+        <p className="mt-2 max-w-[58ch] font-data text-[12px] text-[var(--c-text-faint)]">
+          Lifts are marginal effects — not independently additive. Estimated CTR is a model prediction.
+        </p>
+        <div className="flex shrink-0 items-baseline gap-3">
+          <span className="font-display text-[28px] font-semibold tracking-[-0.5px] text-[var(--c-green)]">
+            ~{estimated_ctr.toFixed(1)}%
+          </span>
+          <span className="font-data text-[12px] text-[var(--c-text-faint)]">estimated</span>
         </div>
       </div>
     </SectionCard>
