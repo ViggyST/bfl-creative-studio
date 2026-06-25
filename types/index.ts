@@ -86,19 +86,68 @@ export interface ReferenceCreative {
 }
 
 export interface BriefResponse {
-  detected_intent: CreativeIntent;
-  intent_signal: string;          // one sentence explaining auto-detection
-  creative_type: string;
-  creative_type_reason: string;
-  ctr_score_estimate: {
-    baseline: number;
-    elements: CTRElement[];
-    estimated_ctr: number;
+  // Scenario selection
+  scenario_id: string;                    // "S5"
+  scenario_name: string;                  // "Product Spec Sheet — Smartphone"
+  base_creative: {
+    filename: string;
+    display_name: string;
+    ctr: number;
+    url: string;
   };
-  layout_brief: LayoutBrief;
-  include: string[];
-  avoid: string[];
-  copy_formula: CopyFormula;
-  image_prompts: ImagePrompts;
-  reference_creatives: ReferenceCreative[];
+  confidence: 'HIGH' | 'MED' | 'LOW';
+  evidence_note: string;                  // "n=20, mean 2.78%, top 4.88%"
+  needs_pretest: boolean;
+
+  // Synthesis output
+  structural_keep: string[];             // ["Card bottom-left corner", ...]
+  story_change: string[];                // ["Product → Realme 16 Pro", ...]
+
+  // Component spec
+  component_spec: {
+    hero: string;
+    card: string;
+    background: string;
+    chips: string[];
+    logo: string;
+    cta: string;
+  };
+
+  // Copy
+  copy_pack: {
+    headline: string;
+    body: string;
+    cta: string;
+  };
+
+  // Experiment
+  ab_experiment: string;                 // ONE suggestion, text only
+
+  // Image prompts
+  image_prompts: {
+    gpt4o: string;
+    gemini: string;
+    midjourney: string;
+  };
+
+  // CTR signal analysis (for collapsed section)
+  ctr_signal_analysis: {
+    baseline: number;                    // always 2.12
+    signals: Array<{
+      feature: string;
+      lift: number;
+      note: string;
+    }>;
+    estimated_range: string;             // "3.0–4.5%" — range not precise number
+    confidence: string;
+  };
+
+  // Reference creatives pool (the 5 images shown to Claude)
+  reference_creatives: Array<{
+    filename: string;
+    display_name: string;
+    ctr: number;
+    url: string;
+    is_base: boolean;                    // true for the one Claude chose
+  }>;
 }

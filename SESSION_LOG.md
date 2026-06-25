@@ -3,6 +3,8 @@
 Sessions S1–S5 predate this log (see Project Knowledge / earlier chat history for detail).
 S5 (UI components) completed 15 Jun 2026 — see CLAUDE.md §7.
 
+24 Jun 2026 — v2 Architecture Decision. Vision + template routing approved. Pre-flight complete. S7A next.
+
 ---
 
 ## 15 Jun 2026 — Housekeeping (pre-S6a)

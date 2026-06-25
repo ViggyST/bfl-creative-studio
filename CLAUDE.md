@@ -71,22 +71,18 @@ enforced — see docs/KNOWN_ISSUES.md).
 ## 6. Build Session Plan
 | Session | Scope | Key Output | Verification |
 |---|---|---|---|
-| S6a | Visual polish — audit every component against docs/DESIGN_SYSTEM.md section by section (typography scale, letter-spacing, shadows, pill vs sharp radius, colour tokens). Fix drift. | Updated components/*, globals.css if new tokens needed | `npm run build` = 0 errors; matches v1.1 spec for form, loading state, and all 7 output sections |
-| S6b | Fix CTR waterfall math — add instruction to lib/systemPrompt.ts so `baseline + Σ(elements[].lift) ≈ estimated_ctr` (±0.2%), and elements[] only lists features that materially explain the score | Updated lib/systemPrompt.ts | Generate 3 test briefs (Acquisition/Card, Festive/AC, Product/Phone) — waterfall math checks out for all 3 |
-| S6c | Reference creatives QA — once public/creatives/ is populated, verify filenames in lib/creativeLibrary.ts match actual files exactly (case-sensitive) | Any filename corrections in creativeLibrary.ts | All 5 thumbnails render (no 404) for 3 test briefs across different product categories |
-| S7 | Final polish + README + deploy | README.md, Vercel deploy | 3 real briefs <10s, 0 console errors, shared URL works |
+| S7A | Update systemPrompt.ts to produce v2 BriefResponse shape (scenario routing, component_spec, copy_pack, ctr_signal_analysis, etc.) | Updated lib/systemPrompt.ts | `npm run build` = 0 errors; LLM returns parseable v2 JSON |
+| S7B | Rework BriefOutput.tsx to render v2 fields (scenario card, structural_keep/story_change, component_spec, copy_pack, ab_experiment, ctr_signal_analysis range) | Updated components/BriefOutput.tsx | All sections render correctly for 3 test briefs |
+| S7C | Wire route.ts — validate v2 JSON shape, update BriefOutput prop type from `any` to `BriefResponse` | Updated app/api/generate-brief/route.ts, BriefOutput.tsx | `npm run build` = 0 type errors; 3 briefs end-to-end |
+| S7D | Final polish + README + deploy | README.md, Vercel deploy | 3 real briefs end-to-end, 0 console errors, shared URL works |
 
 ## 7. Current Status
-**Last completed: S6 (desktop layout + type scale + CTR fix), 16 Jun 2026.**
-All 7 sections of BriefOutput restyled to desktop spec (1140px max-width, 44px
-Creative Type heading, section cards px-8 py-7, Copy Formula 3-col grid, Layout Brief
-amber left border, CTR Signal Analysis with proportional bars + disclaimer).
-BriefForm expanded to 760px with Required/Optional tags, larger inputs and chips.
-systemPrompt.ts updated with INSTRUCTION 08 (CTR holistic prediction, not element sum).
-Build verified 0 errors. Committed b172d00, pushed to main.
-
-**Next: S6c** — verify all 82 filenames in lib/creativeLibrary.ts match public/creatives/
-exactly (case-sensitive). Then S7: README + Vercel deploy.
+**v2 architecture approved, pre-flight complete. S7A next.**
+KB baseline updated to 2.12% median (104 creatives). Archetype table revised with 7 rows
+including Partner Co-branded and Niche Standalone. BriefResponse type replaced with v2
+schema (scenario routing, component_spec, copy_pack, ctr_signal_analysis, etc.).
+BriefOutput.tsx currently renders v1 fields — expected until S7B/S7C completes.
+Pre-flight committed. 25 Jun 2026.
 
 ## 8. Tool Division
 | | Claude Code | Cursor |

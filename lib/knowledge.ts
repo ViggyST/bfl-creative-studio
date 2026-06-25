@@ -42,7 +42,9 @@ Landing page goal: Check loan limit → Apply for card.
 
 ## BLOCK 02 — FEATURE INTELLIGENCE (Confound-Corrected CTR Lifts)
 
-Portfolio baseline CTR: 2.50% (reach-weighted across 82 creatives)
+Portfolio baseline CTR: 2.12% (median static/carousel across 104 creatives)
+Reach-weighted mean: 1.88% (depressed by high-reach carousels at 1.1–1.4% CTR)
+Use 2.12% median as the benchmark — it is less sensitive to reach concentration.
 All lifts below are vs this baseline.
 
 ### Positive Signals
@@ -74,13 +76,15 @@ In single-product context: affordability messaging = +1.73% lift.
 Never penalise affordability, aspiration, or Zero Annual Fee in single-product briefs.
 
 ### Archetype Benchmarks
-| Archetype            | Avg CTR | n  | Reach  |
-|---------------------|---------|----|--------|
-| Festive Overlay     | 4.28%   | 7  | 5.4M   |
-| Product Hero + Card | 3.19%   | 4  | 14.5M  |
-| Card Hero           | 2.76%   | 19 | 393M   |
-| Lifestyle           | 2.63%   | 17 | 62M    |
-| Cluster (avoid)     | 1.86%   | 35 | 873M   |
+| Archetype               | Avg CTR | n   | Reach   |
+|-------------------------|---------|-----|---------|
+| Festive/Event           | 4.36%   | 6   | 5.4M    |
+| Partner Co-branded      | 4.13%   | 5   | 23.8M   |
+| Card Center Stage       | 3.50%   | 10+ | 393M    |
+| Product Spec Sheet      | 2.78%   | 20+ | 318M    |
+| Lifestyle / Appliance   | 2.63%   | 17  | 62M     |
+| Cluster (avoid)         | 1.45%   | 8   | 873M    |
+| Niche Standalone (avoid)| 0.88%   | 5   | 12M     |
 
 ### High-Performance Combinations
 - Festive × Cashback visible → 4.43% avg (n=6, most consistent combo)
