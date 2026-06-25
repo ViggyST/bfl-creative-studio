@@ -825,6 +825,324 @@ export const creativeLibrary: CreativeCard[] = [
     key_features: ["card_visible", "multi_product"],
     url: "/creatives/Gaming_Specific_Products_with_Card_in_Center.png",
   },
+  // ─────────────────────────────────────────────────────────────────────────────
+// NEW CREATIVE LIBRARY ENTRIES — paste into creativeLibrary.ts
+// Source: WJ Campaign (Woh Jaane) performance data
+// Note: WJ Camp CTRs are from interest-based targeting, not main acquisition
+//       campaign. They run systematically lower than main portfolio (~1.0–2.2%
+//       vs 2.12% median). Do not mix with main portfolio for signal analysis.
+//       These entries are valid for vision reference matching but should not
+//       be used in scenario routes until validated in acquisition context.
+//
+// DUPE FILES — no new entries needed, map to existing:
+//   Realme_16_Pro.png         → Realme_16_Pro_Phone_with_Product_Specific_Card_Benefits.png
+//   Redmi_Note_15_Pro.png     → Redmi_Note_15_Pro_Phone_with_Product_Specific_Card_Benefits.png
+//   Oppo_A6_Pro.png           → Oppo_A6_pro_Product_with_Card_and_Benifits.png
+//   Oppo_Reno_15C.png         → Oppo_Reno_15c_with_Card_and_Benifits.png
+//   Laptop_Single_Product.png → Laptop_Specific_with_Card.png
+//   Laptop_Multiple_Product.png → Multiple_Laptop_Specific_with_Card.png
+//   iphone_car.png            → Apple_IPhone_Carousel.png
+//   iPad.png                  → Ipad_Colours_with_Cards.png (confirm)
+//
+// EXCLUDED:
+//   WJ_Camp_Video_Trip_Troop.png — video, excluded per v2 policy
+//   Accessories_YT.png           — 3K reach, no signal
+//   Ecom_Prod.png                — 10K reach, no signal
+//   Product_Gif.png              — 5K reach, no signal
+//   Product_Generic.png          — no CTR data provided
+// ─────────────────────────────────────────────────────────────────────────────
+
+  // ── AC / APPLIANCE ──────────────────────────────────────────────────────────
+
+  {
+    filename: "AC_Blue_Star.png",
+    display_name: "Blue Star AC — EMI Benefits (1.24%)",
+    creative_type: "Product Moment",
+    product_category: "AC",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.24,
+    key_features: ["brand_logo", "emi_per_month", "single_product", "high_text_density"],
+    url: "/creatives/AC_Blue_Star.png",
+  },
+  {
+    filename: "AC_Car_Multi_Brand.png",
+    display_name: "AC Multi-Brand Carousel — EMI (1.70%)",
+    creative_type: "Product Moment",
+    product_category: "AC",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.70,
+    key_features: ["multi_product", "brand_logo", "emi_per_month"],
+    url: "/creatives/AC_Car_Multi_Brand.png",
+  },
+  {
+    filename: "AC_Car_Voltas.png",
+    display_name: "Voltas AC Carousel — EMI (1.30%)",
+    creative_type: "Product Moment",
+    product_category: "AC",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.30,
+    key_features: ["brand_logo", "emi_per_month", "card_visible"],
+    url: "/creatives/AC_Car_Voltas.png",
+  },
+  {
+    filename: "AC_Cooler.png",
+    display_name: "AC & Cooler — Category Benefits (1.10%)",
+    creative_type: "Product Moment",
+    product_category: "AC",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.10,
+    key_features: ["multi_product", "emi_per_month"],
+    url: "/creatives/AC_Cooler.png",
+  },
+  {
+    filename: "Home_App_Car_Multi_Product.png",
+    display_name: "Home Appliances Multi-Product Carousel (1.30%)",
+    creative_type: "Product Moment",
+    product_category: "Electronics Cluster",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.30,
+    key_features: ["multi_product", "emi_per_month", "high_text_density"],
+    url: "/creatives/Home_App_Car_Multi_Product.png",
+  },
+  {
+    filename: "Home_App_Car_Voltas.png",
+    display_name: "Voltas Home Appliance Carousel — Lifestyle (1.77%)",
+    creative_type: "Lifestyle",
+    product_category: "AC",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.77,
+    key_features: ["brand_logo", "lifestyle_person", "emi_per_month", "card_visible"],
+    url: "/creatives/Home_App_Car_Voltas.png",
+  },
+
+  // ── SMARTPHONES ─────────────────────────────────────────────────────────────
+
+  {
+    filename: "Android_Mobile_Car.png",
+    display_name: "Android Mobile Carousel — Samsung + OnePlus (2.20%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 2.20,
+    key_features: ["multi_product", "brand_logo", "emi_per_month"],
+    url: "/creatives/Android_Mobile_Car.png",
+  },
+  {
+    filename: "iPhone_15_17_Car.png",
+    display_name: "Apple iPhone 15–17 Carousel — EMI (1.29%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.29,
+    key_features: ["multi_product", "brand_logo", "emi_per_month", "card_visible"],
+    url: "/creatives/iPhone_15_17_Car.png",
+  },
+  {
+    filename: "iphone_car_multi_models.png",
+    display_name: "Apple iPhone Multi-Model Carousel (1.10%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.10,
+    key_features: ["multi_product", "brand_logo", "emi_per_month"],
+    url: "/creatives/iphone_car_multi_models.png",
+  },
+  {
+    filename: "Iphone_Prod_Car.png",
+    display_name: "Apple iPhone Product Carousel — WJ Camp (1.10%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.10,
+    key_features: ["multi_product", "brand_logo", "emi_per_month"],
+    url: "/creatives/Iphone_Prod_Car.png",
+  },
+  {
+    filename: "Mobile_UND_30K.png",
+    display_name: "Smartphones Under ₹30K — Oppo + Samsung (1.75%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.75,
+    key_features: ["cashback_visible", "brand_logo", "emi_per_month", "multi_product", "affordability_messaging"],
+    url: "/creatives/Mobile_UND_30K.png",
+  },
+  {
+    filename: "Nothing_4A.png",
+    display_name: "Nothing Phone 4A — Easy EMI (0.98%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 0.98,
+    key_features: ["brand_logo", "emi_per_month", "single_product"],
+    url: "/creatives/Nothing_4A.png",
+  },
+  {
+    filename: "Vivo_X300_FE.png",
+    display_name: "Vivo X300 FE — Card + EMI (1.40%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.40,
+    key_features: ["brand_logo", "emi_per_month", "single_product", "card_visible"],
+    url: "/creatives/Vivo_X300_FE.png",
+  },
+  {
+    filename: "Vivo_X300_Ultra.png",
+    display_name: "Vivo X300 Ultra — EMI Benefits (1.50%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.50,
+    key_features: ["brand_logo", "emi_per_month", "single_product"],
+    url: "/creatives/Vivo_X300_Ultra.png",
+  },
+  {
+    filename: "WJ_Camp_Iphone_Prod_Car.png",
+    display_name: "Apple iPhone Product Carousel — WJ Variant (1.10%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.10,
+    key_features: ["multi_product", "brand_logo", "emi_per_month"],
+    url: "/creatives/WJ_Camp_Iphone_Prod_Car.png",
+  },
+  {
+    filename: "WJ_Camp_Realme_16_Pro_PF_16.png",
+    display_name: "Realme 16 Pro PF16 — WJ Variant (1.65%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.65,
+    key_features: ["brand_logo", "emi_per_month", "single_product"],
+    url: "/creatives/WJ_Camp_Realme_16_Pro_PF_16.png",
+  },
+  {
+    filename: "WJ_Camp_Samsung_S26.png",
+    display_name: "Samsung S26 — Card + EMI Benefits (1.43%)",
+    creative_type: "Product Moment",
+    product_category: "Smartphone",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.43,
+    key_features: ["brand_logo", "emi_per_month", "single_product", "card_visible"],
+    url: "/creatives/WJ_Camp_Samsung_S26.png",
+  },
+
+  // ── CARD / OFFER ─────────────────────────────────────────────────────────────
+
+  {
+    filename: "Card_Face_BT.png",
+    // LOW REACH: 1.75L — include but do not add to scenario routes
+    display_name: "Card Face — BNPL Benefits (1.03%)",
+    creative_type: "Card Spotlight",
+    product_category: "Card",
+    goal_fit: ["Card-Led", "Offer-Led"],
+    reach_weighted_ctr: 1.03,
+    key_features: ["card_visible", "loan_limit_shown", "high_text_density"],
+    url: "/creatives/Card_Face_BT.png",
+  },
+  {
+    filename: "FK_1K_Offer.png",
+    display_name: "Flipkart ₹1K Offer — Partner Benefits (1.10%)",
+    creative_type: "Partner Co-branded",
+    product_category: "Card",
+    goal_fit: ["Offer-Led"],
+    reach_weighted_ctr: 1.10,
+    key_features: ["partner_logo", "cashback_visible", "card_visible"],
+    url: "/creatives/FK_1K_Offer.png",
+  },
+  {
+    filename: "Zero_Fee.png",
+    display_name: "Zero Fee Offer — Card Benefits (0.90%)",
+    creative_type: "Offer Highlight",
+    product_category: "Card",
+    goal_fit: ["Offer-Led", "Card-Led"],
+    reach_weighted_ctr: 0.90,
+    key_features: ["card_visible", "affordability_messaging", "loan_limit_shown"],
+    url: "/creatives/Zero_Fee.png",
+  },
+  {
+    filename: "Product_Gen_Card_Face.png",
+    // LOW REACH: 2.33L — include but do not add to scenario routes
+    display_name: "Product Generic — Card Face (0.95%)",
+    creative_type: "Card Spotlight",
+    product_category: "Card",
+    goal_fit: ["Card-Led"],
+    reach_weighted_ctr: 0.95,
+    key_features: ["card_visible", "loan_limit_shown"],
+    url: "/creatives/Product_Gen_Card_Face.png",
+  },
+
+  // ── GENERIC / ELECTRONICS CLUSTER ──────────────────────────────────────────
+
+  {
+    filename: "Generic_Product.png",
+    display_name: "Generic Product — Multi-Category (0.87%)",
+    creative_type: "Product Moment",
+    product_category: "Electronics Cluster",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 0.87,
+    key_features: ["multi_product", "card_visible"],
+    url: "/creatives/Generic_Product.png",
+  },
+  {
+    filename: "WJ_Camp_Generic_Product.png",
+    display_name: "Generic Product — WJ Variant (0.63%)",
+    creative_type: "Product Moment",
+    product_category: "Electronics Cluster",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 0.63,
+    key_features: ["multi_product"],
+    url: "/creatives/WJ_Camp_Generic_Product.png",
+  },
+  {
+    filename: "Product_Girl.png",
+    display_name: "Girl with Electronics — Lifestyle Cluster (1.10%)",
+    creative_type: "Lifestyle",
+    product_category: "Electronics Cluster",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.10,
+    key_features: ["lifestyle_person", "multi_product"],
+    url: "/creatives/Product_Girl.png",
+  },
+  {
+    filename: "Products_Gen_YT.png",
+    display_name: "Generic Products — Yellow Thumbnail (0.83%)",
+    creative_type: "Product Moment",
+    product_category: "Electronics Cluster",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 0.83,
+    key_features: ["multi_product", "high_text_density"],
+    url: "/creatives/Products_Gen_YT.png",
+  },
+
+  // ── WEARABLE ─────────────────────────────────────────────────────────────────
+
+  {
+    filename: "SmartWatch_Car.png",
+    // LOW REACH: 10K — include but do not add to scenario routes
+    display_name: "Smartwatch Carousel — WJ Camp (1.70%)",
+    creative_type: "Product Moment",
+    product_category: "Wearable",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.70,
+    key_features: ["multi_product", "emi_per_month"],
+    url: "/creatives/SmartWatch_Car.png",
+  },
+
+  // ── LOW REACH (included for completeness, exclude from routing) ─────────────
+
+  {
+    filename: "Accessories_BT.png",
+    // LOW REACH: 16K — no routing signal. Include for library completeness only.
+    display_name: "Accessories — Bluetooth (1.00%)",
+    creative_type: "Product Moment",
+    product_category: "Electronics Cluster",
+    goal_fit: ["Product-Led"],
+    reach_weighted_ctr: 1.00,
+    key_features: ["multi_product"],
+    url: "/creatives/Accessories_BT.png",
+  },
 ];
 
 
