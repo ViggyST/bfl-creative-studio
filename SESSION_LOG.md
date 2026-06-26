@@ -4,6 +4,47 @@ Sessions S1–S5 predate this log. S5 (UI components) completed 15 Jun 2026.
 
 ---
 
+## 26 Jun 2026 — S7B (Vision integration + synthesis-first prompt — Claude Code)
+
+**Commit: (see below)**
+
+Files modified: `app/api/generate-brief/route.ts`, `lib/systemPrompt.ts`.
+
+**route.ts changes:**
+- Replaced `getTopCreatives` with `getScenarioCreatives` + `scenarioRoutes` from
+  `templateLibrary.ts`. Route now sends 5 curated PNGs as base64 image blocks.
+- Added `readCreativeAsBase64()` helper with magic-byte media-type detection — files
+  have `.png` extension but some are JPEG; detected from file header to prevent API error.
+- Removed `serializeCreatives()` function entirely.
+- User message restructured: 5 `image` blocks first, then `text` block with
+  campaign brief + routing context (scenario_id/label) + ordered creative metadata.
+- `classifyIntent()` untouched — still used for pre-routing before templateLibrary lookup.
+
+**systemPrompt.ts changes:**
+- `REASONING_INSTRUCTIONS` fully replaced with synthesis-first v2 instructions.
+- Key changes: INSTRUCTION 04 rewritten as Vision-First Synthesis (study images → pick
+  base_creative → derive structural_keep/story_change → synthesise). INSTRUCTION 05
+  now targets `component_spec` (not `layout_brief`). Output schema in INSTRUCTION 07
+  updated to v2 BriefResponse shape. Baseline locked to 2.12 throughout.
+- `buildSystemPrompt()` export and `KNOWLEDGE_BASE` import unchanged.
+
+**Gate results (3 briefs tested live):**
+
+| Brief | scenario_id | base_creative | structural_keep | story_change | baseline | ref count | is_base |
+|---|---|---|---|---|---|---|---|
+| Voltas AC / Diwali / ₹2K cashback | S3 | Washing_Machine_with_Festive_Card_Benifits.png | 9 | 9 | 2.12 | 5 | 1 |
+| Samsung Galaxy S25 / ₹1K cashback | S4 | Samsung_Phone_with_Card.png | 8 | 8 | 2.12 | 5 | 1 |
+| Card cold acquisition | S1 | Card_on_Center_Stage_with_Card_Benifits_1.png | 7 | 5 | 2.12 | 5 | 1 |
+
+**Known issue flagged for S7C:** LLM returns `url` in `base_creative` and
+`reference_creatives` as bare filename (e.g. `"Washing_Machine_..."`) without the
+`/creatives/` prefix that `creativeLibrary.ts` uses. Will need path normalisation
+in S7C when rendering images.
+
+**Next: S7C** — `components/BriefOutput.tsx` 9-zone redesign + `CreativeCard.tsx` minor.
+
+---
+
 ## 24 Jun 2026 — Pre-flight (v2 architecture — Cursor)
 
 **Commit: 8d79043**

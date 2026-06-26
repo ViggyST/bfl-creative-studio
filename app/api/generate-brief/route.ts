@@ -4,9 +4,11 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
-import { getTopCreatives } from '@/lib/creativeLibrary';
+import fs from 'fs';
+import path from 'path';
+import { getScenarioCreatives, scenarioRoutes } from '@/lib/templateLibrary';
 import { buildSystemPrompt } from '@/lib/systemPrompt';
-import type { BriefRequest, CreativeCard, CreativeIntent } from '@/types/index';
+import type { BriefRequest, CreativeIntent } from '@/types/index';
 
 const client = new Anthropic();
 
@@ -41,19 +43,22 @@ function classifyIntent(product: string, offer: string, context?: string): Creat
   return 'Card-Led';
 }
 
-// ── CREATIVE SERIALIZER ──────────────────────────────────────────────────────
-// Converts top 5 CreativeCard objects into structured text for the LLM user message.
-// Flat key_features list — token-efficient, LLM parses correctly.
+// ── BASE64 HELPER ────────────────────────────────────────────────────────────
 
-function serializeCreatives(creatives: CreativeCard[]): string {
-  return creatives
-    .map(
-      (c, i) =>
-        `${i + 1}. ${c.display_name}\n` +
-        `   Type: ${c.creative_type} | CTR: ${c.reach_weighted_ctr}% | URL: ${c.url}\n` +
-        `   Features: ${c.key_features.join(', ')}`
-    )
-    .join('\n\n');
+function readCreativeAsBase64(url: string): { data: string; media_type: 'image/png' | 'image/jpeg' | 'image/webp' | 'image/gif' } {
+  // url = "/creatives/filename.png"
+  const filePath = path.join(process.cwd(), 'public', url);
+  const buf = fs.readFileSync(filePath);
+  // Detect actual format from magic bytes — extension alone is unreliable
+  let media_type: 'image/png' | 'image/jpeg' | 'image/webp' | 'image/gif' = 'image/jpeg';
+  if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47) {
+    media_type = 'image/png';
+  } else if (buf[0] === 0x47 && buf[1] === 0x49 && buf[2] === 0x46) {
+    media_type = 'image/gif';
+  } else if (buf[0] === 0x52 && buf[1] === 0x49 && buf[2] === 0x46 && buf[3] === 0x46) {
+    media_type = 'image/webp';
+  }
+  return { data: buf.toString('base64'), media_type };
 }
 
 // ── POST HANDLER ─────────────────────────────────────────────────────────────
@@ -71,19 +76,43 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 1: Pre-filter — classify intent + get top 5 reference creatives
+    // Step 1: Pre-filter — classify intent + get 5 scenario-matched reference creatives
     const intent: CreativeIntent = body.intent ?? classifyIntent(product, offer, context);
-    const topCreatives = getTopCreatives(product, intent, 5);
+    const scenarioCreatives = getScenarioCreatives(intent, product);
+    const matchedRoute = scenarioRoutes.find(r =>
+      r.reference_filenames.includes(scenarioCreatives[0]?.filename ?? '')
+    );
+    const scenarioId    = matchedRoute?.scenario_id    ?? 'S1';
+    const scenarioLabel = matchedRoute?.scenario_label ?? 'Card-Led / Generic';
 
-    // Step 2: Build user message
-    const userMessage =
+    // Step 2: Build vision blocks + campaign brief text
+    const imageBlocks = scenarioCreatives.map(c => {
+      const { data, media_type } = readCreativeAsBase64(c.url);
+      return {
+        type: 'image' as const,
+        source: {
+          type: 'base64' as const,
+          media_type,
+          data,
+        },
+      };
+    });
+
+    const campaignBriefText =
       `CAMPAIGN BRIEF REQUEST\n\n` +
       `Product / Focus: ${product.trim()}\n` +
       `Offer: ${offer.trim()}\n` +
       `Additional Context: ${context?.trim() || 'None provided'}\n\n` +
-      `PRE-FILTERED REFERENCE CREATIVES (for reference_creatives section only — do not base strategy on these):\n` +
-      `${serializeCreatives(topCreatives)}\n\n` +
-      `Generate a complete creative brief as valid JSON only.`;
+      `ROUTING CONTEXT — copy these values verbatim into scenario_id and scenario_name:\n` +
+      `scenario_id: ${scenarioId}\n` +
+      `scenario_name: ${scenarioLabel}\n\n` +
+      `REFERENCE CREATIVES — 5 images attached (in order above):\n` +
+      scenarioCreatives
+        .map((c, i) => `${i + 1}. ${c.display_name} | CTR: ${c.reach_weighted_ctr}% | File: ${c.filename}`)
+        .join('\n') +
+      `\n\nStudy the 5 images. Select ONE as base_creative. ` +
+      `Synthesise a brief that keeps what works structurally and adapts the story for this campaign. ` +
+      `Respond with valid JSON only — no preamble, no markdown fences.`;
 
     // Step 3: Single Anthropic API call — system prompt is cached
     const response = await client.messages.create({
@@ -99,7 +128,10 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: 'user',
-          content: userMessage,
+          content: [
+            ...imageBlocks,
+            { type: 'text' as const, text: campaignBriefText },
+          ],
         },
       ],
     });
