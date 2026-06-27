@@ -4,6 +4,51 @@ Sessions S1–S5 predate this log. S5 (UI components) completed 15 Jun 2026.
 
 ---
 
+## 27 Jun 2026 — S7C (Free-text input + BriefResponse types + URL normalization — Claude Code)
+
+**Commit: (see below)**
+
+Files modified: `types/index.ts`, `app/api/generate-brief/route.ts`, `lib/systemPrompt.ts`, `components/BriefForm.tsx`, `components/BriefOutput.tsx`.
+
+**types/index.ts:**
+- `BriefRequest` replaced with free-text shape: `{ freeText: string; intent?: CreativeIntent }`. All v1 legacy interfaces retained.
+
+**route.ts:**
+- Input now reads `body.freeText` instead of `product/offer/context`.
+- `classifyIntent(rawInput, '', '')` — passes entire free text as first arg for richer signal.
+- `campaignBriefText` uses `Campaign Description: ${rawInput}` instead of structured fields.
+- URL normalization block added after `JSON.parse`: prepends `/creatives/` to bare filenames in `base_creative.url` and all `reference_creatives[].url`.
+
+**systemPrompt.ts:**
+- INSTRUCTION 03 updated: added sentence noting free-form text input and that intent is extracted from it.
+- INSTRUCTION 07 schema: added `/creatives/` prefix comments on `url` fields in `base_creative` and `reference_creatives`.
+
+**BriefForm.tsx:**
+- Full rewrite to free-text form. Removed `INTENT_OPTIONS`, `intent/product/offer/context` state, `FormEvent`.
+- New state: `[input, setInput]` + `[error, setError]`.
+- New sub-copy: "Backed by 104 analysed Insta EMI Card creatives · Confound-corrected CTR data / Tell us your campaign in plain English. No form filling required."
+- 3 example chips that populate the textarea on click.
+- `onSubmit({ freeText: input.trim() })`.
+
+**BriefOutput.tsx:**
+- Full 9-zone rewrite. `brief: any → brief: BriefResponse` on all sub-components.
+- Zone 1 (BriefRequestCard): `request.freeText` in Campaign label, scenario_name/id, confidence badge, needs_pretest flag.
+- Zone 2 (BaseCreativeSection): base_creative image at 220px width, template name, CTR badge, evidence_note.
+- Zone 3 (KeepChangeSection): structural_keep (green chips) / story_change (amber chips).
+- Zone 4 (ComponentSpecSection): 6-row table — HERO/CARD/BACKGROUND/CHIPS/LOGO/CTA from component_spec.
+- Zone 5 (CopyPackSection): copy_pack headline/body/cta boxes.
+- Zone 6 (ABExperimentSection): ab_experiment text with "Experiment — Unproven" red badge.
+- Zone 7 (ImagePromptsSection): image_prompts tabs (gpt4o/gemini/midjourney).
+- Zone 8 (ReferenceCreativesSection): 5-card grid; `is_base` flag drives gold border via `isBestMatch` prop; `match_reason: ''` added as spread to satisfy `ReferenceCreative` type.
+- Zone 9 (CTRSignalSection): collapsed by default via `useState(false)`; header shows `estimated_range` preview.
+
+**Gate:**
+- `npm run build` = 0 TypeScript errors.
+
+**Next: S7D** — Polish + README + Vercel deploy.
+
+---
+
 ## 26 Jun 2026 — S7B (Vision integration + synthesis-first prompt — Claude Code)
 
 **Commit: (see below)**

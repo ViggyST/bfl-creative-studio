@@ -43,10 +43,8 @@ export interface CreativeCard {
 }
 
 export interface BriefRequest {
-  intent?: CreativeIntent; // optional — auto-detected from inputs if not provided
-  product: string;         // free text e.g. "Voltas AC summer theme"
-  offer: string;           // free text e.g. "₹2,000 cashback + Zero Down Payment"
-  context?: string;        // optional — audience notes, event, competitor, tone
+  freeText: string;        // free-form campaign description
+  intent?: CreativeIntent; // optional — auto-detected from freeText if not provided
 }
 
 export interface CTRElement {

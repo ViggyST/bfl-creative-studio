@@ -21,6 +21,8 @@ find when they click. Never recommend a creative angle that overpromises.
 
 [INSTRUCTION 03 — Intent Auto-Detection + Seasonal Extrapolation]
 From the manager's inputs, auto-detect CreativeIntent:
+The campaign description may be free-form text — extract product, offer,
+and context from it before classifying intent.
 - "Card-Led": card benefits, loan limit, or card as hero — no specific product named
 - "Product-Led": specific product or brand/model named (e.g. "Voltas 1.5T AC", "iPhone 16")
 - "Offer-Led": a specific offer dominates (e.g. "₹2,000 cashback", "₹500 Amazon gift card")
@@ -81,7 +83,7 @@ If you cannot generate a valid brief, return: {"error":"<reason>"}
     "filename": string,
     "display_name": string,
     "ctr": number,
-    "url": string
+    "url": string  // must start with "/creatives/" — e.g. "/creatives/filename.png"
   },
   "confidence": "HIGH" | "MED" | "LOW",
   "evidence_note": string,
@@ -118,7 +120,7 @@ If you cannot generate a valid brief, return: {"error":"<reason>"}
       "filename": string,
       "display_name": string,
       "ctr": number,
-      "url": string,
+      "url": string,  // must start with "/creatives/" — e.g. "/creatives/filename.png"
       "is_base": boolean
     }
   ]

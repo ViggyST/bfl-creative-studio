@@ -66,19 +66,19 @@ function readCreativeAsBase64(url: string): { data: string; media_type: 'image/p
 export async function POST(request: NextRequest) {
   try {
     const body: BriefRequest = await request.json();
-    const { product, offer, context } = body;
+    const rawInput = body.freeText ?? '';
 
     // Basic validation
-    if (!product?.trim() || !offer?.trim()) {
+    if (!rawInput.trim()) {
       return NextResponse.json(
-        { error: 'Product and offer are required.' },
+        { error: 'Please describe your campaign.' },
         { status: 400 }
       );
     }
 
     // Step 1: Pre-filter — classify intent + get 5 scenario-matched reference creatives
-    const intent: CreativeIntent = body.intent ?? classifyIntent(product, offer, context);
-    const scenarioCreatives = getScenarioCreatives(intent, product);
+    const intent: CreativeIntent = body.intent ?? classifyIntent(rawInput, '', '');
+    const scenarioCreatives = getScenarioCreatives(intent, rawInput);
     const matchedRoute = scenarioRoutes.find(r =>
       r.reference_filenames.includes(scenarioCreatives[0]?.filename ?? '')
     );
@@ -100,9 +100,7 @@ export async function POST(request: NextRequest) {
 
     const campaignBriefText =
       `CAMPAIGN BRIEF REQUEST\n\n` +
-      `Product / Focus: ${product.trim()}\n` +
-      `Offer: ${offer.trim()}\n` +
-      `Additional Context: ${context?.trim() || 'None provided'}\n\n` +
+      `Campaign Description: ${rawInput.trim()}\n\n` +
       `ROUTING CONTEXT — copy these values verbatim into scenario_id and scenario_name:\n` +
       `scenario_id: ${scenarioId}\n` +
       `scenario_name: ${scenarioLabel}\n\n` +
@@ -149,6 +147,19 @@ export async function POST(request: NextRequest) {
       .trim();
 
     const brief = JSON.parse(cleanText);
+
+    // Normalize URLs — LLM sometimes returns bare filename without /creatives/ prefix
+    if (brief.base_creative?.url &&
+        !String(brief.base_creative.url).startsWith('/')) {
+      brief.base_creative.url = `/creatives/${brief.base_creative.url}`;
+    }
+    if (Array.isArray(brief.reference_creatives)) {
+      brief.reference_creatives = brief.reference_creatives.map((c: any) => ({
+        ...c,
+        url: String(c.url).startsWith('/') ? c.url : `/creatives/${c.url}`,
+      }));
+    }
+
     return NextResponse.json(brief);
 
   } catch (error) {
