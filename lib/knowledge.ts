@@ -42,9 +42,9 @@ Landing page goal: Check loan limit → Apply for card.
 
 ## BLOCK 02 — FEATURE INTELLIGENCE (Confound-Corrected CTR Lifts)
 
-Portfolio baseline CTR: 2.12% (median static/carousel across 104 creatives)
-Reach-weighted mean: 1.88% (depressed by high-reach carousels at 1.1–1.4% CTR)
-Use 2.12% median as the benchmark — it is less sensitive to reach concentration.
+Portfolio baseline CTR: 1.83% (median static/carousel across 100 creatives)
+Reach-weighted mean: 1.79% (depressed by high-reach carousels at 1.1–1.4% CTR)
+Use 1.83% median as the benchmark — it is less sensitive to reach concentration.
 All lifts below are vs this baseline.
 
 ### Positive Signals
@@ -76,15 +76,17 @@ In single-product context: affordability messaging = +1.73% lift.
 Never penalise affordability, aspiration, or Zero Annual Fee in single-product briefs.
 
 ### Archetype Benchmarks
-| Archetype               | Avg CTR | n   | Reach   |
-|-------------------------|---------|-----|---------|
-| Festive/Event           | 4.36%   | 6   | 5.4M    |
-| Partner Co-branded      | 4.13%   | 5   | 23.8M   |
-| Card Center Stage       | 3.50%   | 10+ | 393M    |
-| Product Spec Sheet      | 2.78%   | 20+ | 318M    |
-| Lifestyle / Appliance   | 2.63%   | 17  | 62M     |
-| Cluster (avoid)         | 1.45%   | 8   | 873M    |
-| Niche Standalone (avoid)| 0.88%   | 5   | 12M     |
+| Archetype            | Reach-Weighted CTR | n  | Reach   |
+|----------------------|--------------------|----|---------|
+| Festive/Event        | 3.53%              | 6  | 4.1M    |
+| Lifestyle            | 3.30%              | 5  | 6.7M    |
+| Partner Co-branded   | 2.39%              | 6  | 51.5M   |
+| Card Spotlight       | 1.81%              | 13 | 407M    |
+| Product Moment       | 1.73%              | 61 | 1.05B   |
+| Offer Highlight      | 1.73%              | 7  | 24.3M   |
+
+Note: Lifestyle now outperforms Card Spotlight post-correction (Jun 2026
+data refresh) — see docs/Phase2_Creative_Performance.md for methodology.
 
 ### High-Performance Combinations
 - Festive × Cashback visible → 4.43% avg (n=6, most consistent combo)
@@ -109,7 +111,8 @@ Six valid creative types for Insta EMI Card. Never create Generic Cluster.
 ### TYPE 1 — Card Spotlight
 Card is the hero. No specific product. Benefits and loan limit are primary.
 - When to use: Cold acquisition, retargeting, brand awareness
-- Avg CTR: 2.76% (highest at scale — 393M reach across 19 creatives)
+- Avg CTR: 1.81% (n=13, 407M reach — no longer the standout cold-acquisition
+  format; Lifestyle and Festive now outperform it post-correction)
 - Key elements: Card on podium or centre stage, ₹3L limit prominent,
   benefit chips (₹0 Annual Fee / ₹0 Down / EMI from ₹X), dark navy/black background
 - Card placement: Centre stage (only format where card is centred)
@@ -121,20 +124,21 @@ Card is the hero. No specific product. Benefits and loan limit are primary.
 ### TYPE 2 — Product Moment
 One specific product is hero. Card is the enabler. EMI/month is the hook.
 - When to use: Product launch, acquisition with clear product intent
-- Avg CTR: 3.19%
+- Avg CTR: 1.73% (n=61, 1.05B reach)
 - Key elements: Single product occupies 60–70% of frame, card in bottom corner,
   ₹X/month shown, brand logo visible, ₹0 Down Payment badge
 - Card placement: Bottom-left corner
 - Tone: Aspirational + specific. "Own this. Here's how."
-- Top performers: Oppo A6 Pro (4.88%), Google Pixel with Card (3.60%),
-  Samsung S25 Ultra (2.80%)
+- Top performers: Samsung Phone with Card (4.63%), iPad Colours with Cards
+  (3.60%), Google Pixel with Card (3.60%)
 
 ---
 
 ### TYPE 3 — Lifestyle / Aspiration
 Person in a real home setting with the product. Emotional, relatable.
 - When to use: Appliances, TV, AC — big-ticket home products
-- Avg CTR: 2.63% (strongest format for home/appliance categories)
+- Avg CTR: 3.30% (n=5, 6.7M reach — now the #2 archetype in the portfolio
+  post-correction, ahead of Card Spotlight and Partner Co-branded)
 - Key elements: Real home setting, person in scene interacting with product,
   product in natural context, card visible bottom-left
 - Card placement: Bottom-left corner
@@ -147,7 +151,8 @@ Person in a real home setting with the product. Emotional, relatable.
 ### TYPE 4 — Festive / Event
 Seasonal energy is the creative wrapper. Offer is the hook. Product secondary.
 - When to use: BBD, Diwali, Republic Day, any sale event, seasonal moment
-- Avg CTR: 4.28% — BEST PERFORMING FORMAT in portfolio
+- Avg CTR: 3.53% (n=6, 4.1M reach) — still the BEST PERFORMING FORMAT in
+  portfolio, though the margin over Lifestyle has narrowed post-correction
 - Key elements: Dark bokeh background, prominent cashback badge (₹2K+),
   urgency copy, seasonal visual cues, card visible, dual-value message
 - Card placement: Bottom-left or bottom-centre
@@ -161,7 +166,9 @@ Seasonal energy is the creative wrapper. Offer is the hook. Product secondary.
 ### TYPE 5 — Offer Highlight
 A specific offer dominates the creative — gift card, ₹2K cashback, zero down payment.
 - When to use: First-time acquisition with a strong standalone offer
-- Avg CTR: 3.5–4.5% (small n, but consistent)
+- Avg CTR: 1.73% (n=7, 24.3M reach) — wide variance within this type, do not
+  treat as a uniformly strong format. Top performers significantly outpace
+  the average (see below).
 - Key elements: Bold ₹ number as the hero element, circular cashback badge,
   offer detail prominent, card visible, ₹3L loan limit shown
 - Card placement: Bottom-left corner
@@ -174,7 +181,8 @@ A specific offer dominates the creative — gift card, ₹2K cashback, zero down
 ### TYPE 6 — Partner / Co-Branded
 Retail partner is co-featured. Borrows partner trust equity.
 - When to use: Retailer sale events, campaigns targeting partner platform audiences
-- CTR lift: +1.62% over equivalent non-partner creative
+- Avg CTR: 2.39% (n=6, 51.5M reach) — +0.56% lift over new 1.83% baseline
+  (was +1.62% under old baseline; recalculated post-correction)
 - Key elements: Retailer logo prominently shown (Flipkart / Amazon),
   BFL card visible, partner product featured, co-branded feel
 - Card placement: Bottom-left corner
@@ -308,7 +316,9 @@ the creative is not designed — it is assembled.
 ---
 
 ### WHAT WE KNOW — DATA-LOCKED RULES
-These are non-negotiable. Derived from 82 creatives, reach-weighted.
+These are non-negotiable. Derived from the original 82-creative
+Phase 1 baseline; feature lifts below are NOT recalculated with Phase 2
+data and should be treated as directional for Phase 2-only creative types.
 
 Card visibility
   → Card must be visible in every creative — no exceptions

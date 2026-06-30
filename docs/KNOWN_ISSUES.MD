@@ -2,11 +2,7 @@
 
 ## Open
 
-1. **v2 schema migration — BriefOutput.tsx renders v1 fields until S7C completes.**
-   types/index.ts now defines the v2 BriefResponse shape. BriefOutput.tsx still references
-   v1 fields (detected_intent, creative_type, ctr_score_estimate, layout_brief, etc.).
-   Temporary workaround: BriefOutput prop typed as `any` if needed to unblock build.
-   Fix scoped to S7B/S7C.
+_(none)_
 
 ## Notes
 
@@ -21,3 +17,10 @@
 - **CTR waterfall math doesn't reconcile** — RESOLVED (S6b). systemPrompt.ts updated
   with INSTRUCTION 08: elements[] are signal transparency only, estimated_ctr is a
   holistic prediction aligned with archetype benchmarks — not a sum of lifts.
+- **v2 schema migration** — RESOLVED (S7C). BriefOutput.tsx fully rewritten to 9-zone
+  layout using v2 BriefResponse type throughout. `brief: any` workaround removed.
+- **Phase 2 creative library dedup + CTR correction** — RESOLVED (30 Jun 2026).
+  9 duplicate entries removed and merged into existing entries with corrected
+  reach-weighted CTRs. 29 entries updated with verified source data. knowledge.ts
+  archetype table rebuilt from reach-weighted source data. Library: 104 → 100 entries,
+  baseline: 2.12% → 1.83%. See docs/Phase2_Creative_Performance.md for methodology.

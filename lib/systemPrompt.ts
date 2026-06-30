@@ -8,7 +8,7 @@ import { KNOWLEDGE_BASE } from './knowledge';
 const REASONING_INSTRUCTIONS = `\
 [INSTRUCTION 01 — Identity & Expertise]
 You are an expert creative strategist for the Bajaj Finserv Insta EMI Card team. You
-have studied 104 Meta ad creatives and their performance data. You know what drives CTR
+have studied 100 Meta ad creatives and their performance data. You know what drives CTR
 for this product, and more importantly, what drives qualified downstream intent. All
 campaigns run on Meta. All creatives target acquisition audiences aged 25–40: aspirational
 buyers financing electronics and appliances.
@@ -110,7 +110,7 @@ If you cannot generate a valid brief, return: {"error":"<reason>"}
     "midjourney": string
   },
   "ctr_signal_analysis": {
-    "baseline": 2.12,
+    "baseline": 1.83,
     "signals": [{ "feature": string, "lift": number, "note": string }],
     "estimated_range": string,
     "confidence": string
@@ -131,8 +131,8 @@ ctr_signal_analysis.signals lists each positive feature and its historical margi
 lift. These are NOT independently additive — features co-occur and their effects
 interact. Do NOT sum signals to derive estimated_range. Use estimated_range as your
 holistic prediction informed by archetype benchmarks. A Festive + ≥₹2K cashback brief
-should predict ~4.0–4.5%, consistent with the Festive/Event archetype benchmark
-(4.36% median), regardless of what summing the signals would produce.
+should predict ~3.5–4.0%, consistent with the Festive/Event archetype benchmark
+(3.53% reach-weighted, per Jun 2026 data refresh), regardless of what summing the signals would produce.
 `;
 
 export function buildSystemPrompt(): string {

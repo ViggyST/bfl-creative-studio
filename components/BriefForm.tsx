@@ -42,7 +42,7 @@ export default function BriefForm({ onSubmit, initialValues }: BriefFormProps) {
 
       {/* Sub-copy */}
       <p className="mb-8 text-center text-[14px] leading-relaxed text-[var(--c-text-faint)]">
-        Backed by 104 analysed Insta EMI Card creatives · Confound-corrected CTR data
+        Backed by 100 analysed Insta EMI Card creatives · Confound-corrected CTR data
         <br />
         Tell us your campaign in plain English. No form filling required.
       </p>

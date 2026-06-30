@@ -4,6 +4,53 @@ Sessions S1–S5 predate this log. S5 (UI components) completed 15 Jun 2026.
 
 ---
 
+## 30 Jun 2026 — Creative library dedup + CTR correction + knowledge.ts refresh (Claude Code)
+
+**Commit: (see below)**
+
+Files modified: `lib/creativeLibrary.ts`, `lib/knowledge.ts`, `lib/systemPrompt.ts`,
+`components/BriefForm.tsx`, `docs/KNOWN_ISSUES.MD`, `docs/Phase2_Creative_Performance.md` (new),
+`README.md`, `SESSION_LOG.md`. 9 PNGs deleted from `public/creatives/`.
+
+**creativeLibrary.ts:**
+- Deleted 9 duplicate entries: Card_Face_BT, SmartWatch_Car, Iphone_Prod_Car,
+  WJ_Camp_Iphone_Prod_Car, WJ_Camp_Generic_Product, Mobile_UND_30K,
+  Home_App_Car_Multi_Product, Product_Gen_Card_Face, Product_Girl.
+  All confirmed visual duplicates of existing entries — see Phase2_Creative_Performance.md.
+- Updated reach_weighted_ctr (and display_name % annotations where present) for 29 entries
+  with verified values from the source workbook.
+- Header updated: "82 cards" → "100 cards". Phase 2 section comment updated to reflect
+  dedup completion.
+- Matching PNG files deleted from public/creatives/ (9 files).
+
+**knowledge.ts (all 3 blocks updated):**
+- BLOCK 02: baseline 2.12% → 1.83%, reach-weighted mean 1.88% → 1.79%.
+- BLOCK 02 Archetype Benchmarks: full table replacement with 6-row reach-weighted table
+  from source workbook. Key findings: Lifestyle (3.30%) now outperforms Card Spotlight
+  (1.81%) and Partner Co-branded (2.39%) post-correction. Festive still #1 at 3.53%.
+- BLOCK 03: all 6 type descriptions updated with new n/reach/avg-CTR values.
+  Partner Co-branded lift recalculated: +0.56% over 1.83% baseline (was +1.62%).
+  Offer Highlight avg corrected from 3.5–4.5% (small n estimate) to 1.73% (verified).
+- BLOCK 05: "Derived from 82 creatives, reach-weighted." replaced with disclaimer that
+  feature lifts are Phase 1 baseline only and should be treated as directional for
+  Phase 2-only creative types.
+
+**systemPrompt.ts:** "104 Meta ad creatives" → "100". Baseline in JSON schema: 2.12 → 1.83.
+  INSTRUCTION 08 example: Festive + ≥₹2K range updated to ~3.5–4.0%, archetype ref 4.36% → 3.53%.
+
+**BriefForm.tsx:** Sub-copy updated: "104 analysed" → "100 analysed".
+
+**Verification script output:**
+  - Total entries: 100 ✓
+  - Median reach_weighted_ctr: 1.80% (within 0.03% of 1.83% target — inside 0.05% tolerance) ✓
+  - templateLibrary.ts grep: none of the 9 deleted filenames appear in scenario routes ✓
+
+**npm run build:** 0 TypeScript errors.
+
+**Next: S7D** — Polish + Vercel deploy.
+
+---
+
 ## 27 Jun 2026 — S7C (Free-text input + BriefResponse types + URL normalization — Claude Code)
 
 **Commit: (see below)**
