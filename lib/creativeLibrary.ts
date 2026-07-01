@@ -1059,7 +1059,7 @@ function extractBrandKeywords(input: string): string[] {
   const brands = [
     'apple', 'iphone', 'ipad', 'samsung', 'oppo', 'vivo', 'realme',
     'redmi', 'oneplus', 'google', 'pixel', 'voltas', 'lg', 'flipkart',
-    'amazon', 'sony', 'gopro', 'nikon', 'canon', 'hp', 'dell', 'lenovo',
+    'amazon', 'sony', 'gopro', 'nikon', 'canon', 'hp', 'dell', 'lenovo', 'nothing',
   ];
   const l = input.toLowerCase();
   return brands.filter(b => l.includes(b));
